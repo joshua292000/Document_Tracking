@@ -18,6 +18,7 @@ const db = require("./app/models");
 const Roles = db.roles;
 const Usuario = db.usuario;
 const Persona = db.persona;
+const Organizacion = db.organizacion;
 
 db.mongoose
   .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
@@ -28,6 +29,7 @@ db.mongoose
     console.log("Conexion establecida correctamente a MongoDB.");
     initial();
     initial2();
+    initial3();
   })
   .catch(err => {
     console.error("Error de conexion", err);
@@ -50,7 +52,7 @@ app.listen(PORT, () => {
 });
 
 //-------------------------------Se añaden roles------------------------------------------------
-function initial2() {
+function initial3() {
   Persona.estimatedDocumentCount((err, count) => {
     if (!err && count === 0) {
       
@@ -82,6 +84,8 @@ function initial2() {
 function initial() {
   Roles.estimatedDocumentCount((err, count) => {
     if (!err && count === 0) {
+
+      
       new Roles({
         nombre: "user"
       }).save(err => {
@@ -115,4 +119,24 @@ function initial() {
   });
 }
 
+//-------------------------------Se añade una organizacion------------------------------------------------
+function initial2() {
+  Organizacion.estimatedDocumentCount((err, count) => {
+    if (!err && count === 0) {
+      
+      new Organizacion({
 
+        Nombre: "UNA",
+        Fecha_Creacion: "2020-03-01T00:00:00.000+00:00",
+        Tipo: "Publica",
+      }).save(err => {
+        if (err) {
+          console.log("error", err);
+        }
+
+        console.log("Añadido 'UNA' a la colección de organizacion");
+      });
+
+    }
+  });
+}
