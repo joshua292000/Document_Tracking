@@ -6,13 +6,7 @@ const Documento = mongoose.model(
     Nombre: String,
     Anexo: String,
     Tipo: String,
-    Descripcion: String,
-    DocumentoXTramite: 
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Tramite"
-      }
-    
+    Descripcion: String
     
   })
 );
