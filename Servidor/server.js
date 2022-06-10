@@ -19,6 +19,12 @@ const Roles = db.roles;
 const Usuario = db.usuario;
 const Persona = db.persona;
 const Organizacion = db.organizacion;
+const Documento = db.documento;
+const Caso = db.caso;
+const Departamento = db.departamento;
+const Parametro = db.parametro;
+const Permiso = db.permiso;
+const Tramite = db.tramite;
 
 db.mongoose
   .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
@@ -27,9 +33,15 @@ db.mongoose
   })
   .then(() => {
     console.log("Conexion establecida correctamente a MongoDB.");
-    initial();
-    initial2();
-    initial3();
+    ingresarPermiso();
+    ingresarRoles();
+    ingresarPersona();
+    ingresarDepartamento();
+    ingresarOrganizacion();
+    ingresarParametro();
+    ingresarDocumento();
+    ingresarCaso();
+    ingresarTramite();
   })
   .catch(err => {
     console.error("Error de conexion", err);
@@ -51,8 +63,8 @@ app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}.`);
 });
 
-//-------------------------------Se añaden roles------------------------------------------------
-function initial3() {
+//-------------------------------Se añade una persona------------------------------------------------
+function ingresarPersona() {
   Persona.estimatedDocumentCount((err, count) => {
     if (!err && count === 0) {
       
@@ -75,19 +87,26 @@ function initial3() {
           console.log("error", err);
         }
 
-        console.log("Añadido 'UNA' a la colección de organizacion");
+        console.log("Añadido 'Persona' a la colección de persona");
       });
 
     }
   });
 }
-function initial() {
+//------------------------------Se añaden roles---------------------------------
+function ingresarRoles() {
   Roles.estimatedDocumentCount((err, count) => {
     if (!err && count === 0) {
 
       
       new Roles({
-        nombre: "user"
+          nombre: "user",
+          descripcion: "Usuario",
+          rolXPermiso: 
+              {
+                  nombreP: Permiso.nombre
+              }
+          
       }).save(err => {
         if (err) {
           console.log("error", err);
@@ -97,7 +116,13 @@ function initial() {
       });
 
       new Roles({
-        nombre: "moderator"
+          nombre: "moderator",
+          descripcion: "Moderador",
+          rolXPermiso: 
+              {
+                  nombreP: Permiso.nombre
+              }
+          
       }).save(err => {
         if (err) {
           console.log("error", err);
@@ -107,7 +132,13 @@ function initial() {
       });
 
       new Roles({
-        nombre: "admin"
+          nombre: "admin",
+          descripcion: "Administrador",
+          rolXPermiso: 
+              {
+                  nombreP: Permiso.nombre
+              }
+          
       }).save(err => {
         if (err) {
           console.log("error", err);
@@ -120,7 +151,7 @@ function initial() {
 }
 
 //-------------------------------Se añade una organizacion------------------------------------------------
-function initial2() {
+function ingresarOrganizacion() {
   Organizacion.estimatedDocumentCount((err, count) => {
     if (!err && count === 0) {
       
@@ -129,6 +160,8 @@ function initial2() {
         Nombre: "UNA",
         Fecha_Creacion: "2020-03-01T00:00:00.000+00:00",
         Tipo: "Publica",
+          Departamentos: [{ _id: "62a2b5d5665ac23ff8b3ca3b"}],
+        Empleados: [{ _id: "62a2b0a469aa0d51584cb521" }]
       }).save(err => {
         if (err) {
           console.log("error", err);
@@ -139,4 +172,157 @@ function initial2() {
 
     }
   });
+}
+
+//-------------------------------Se añade un documento------------------------------------------------
+function ingresarDocumento() {
+    Documento.estimatedDocumentCount((err, count) => {
+        if (!err && count === 0) {
+
+            new Documento({
+
+                Nombre: "Curriculum",
+                Anexo: "dh435hids",
+                Tipo: "pdf",
+                Descripcion: "dsajjaksdlk"
+            }).save(err => {
+                if (err) {
+                    console.log("error", err);
+                }
+
+                console.log("Añadido 'Curriculum' a la colección de documento");
+            });
+
+        }
+    });
+}
+
+//-------------------------------Se añade un permiso------------------------------------------------
+function ingresarPermiso() {
+    Permiso.estimatedDocumentCount((err, count) => {
+        if (!err && count === 0) {
+
+            new Permiso({
+                nombre: "Crear departamento",
+                descripcion: "Se puede crear un departamento"
+            }).save(err => {
+                if (err) {
+                    console.log("error", err);
+                }
+
+                console.log("Se añadió permiso");
+            });
+
+        }
+    });
+}
+
+//-------------------------------Se añade un departamento------------------------------------------------
+function ingresarDepartamento() {
+    Departamento.estimatedDocumentCount((err, count) => {
+        if (!err && count === 0) {
+
+            new Departamento({
+                Nombre: "Recursos humanos",
+                Descripcion: "Despedir y contratar empleados",
+                Jefe: { _id: "62a2b0a469aa0d51584cb521" },
+                Empleados: [{ _id: "62a2b0a469aa0d51584cb521" }],
+                Contacto: { Correo: "rhh@gmail.com", Telefono: "8888888" }
+
+            }).save(err => {
+                if (err) {
+                    console.log("error", err);
+                }
+
+                console.log("Se añadió departamento");
+            });
+
+        }
+    });
+}
+
+//-------------------------------Se añade un parametro------------------------------------------------
+function ingresarParametro() {
+    Parametro.estimatedDocumentCount((err, count) => {
+        if (!err && count === 0) {
+
+            new Parametro({
+                valor: "ruwioeru"
+
+            }).save(err => {
+                if (err) {
+                    console.log("error", err);
+                }
+
+                console.log("Se añadió un parametro");
+            });
+
+        }
+    });
+}
+
+//-------------------------------Se añade un caso------------------------------------------------
+function ingresarCaso() {
+    Caso.estimatedDocumentCount((err, count) => {
+        if (!err && count === 0) {
+
+            new Caso({
+                NumeroCaso: "4ui3o42",
+                FechaInicio: "2011-07-14T00:00:00.000+00:00",
+                FechaFin: "2012-09-14T00:00:00.000+00:00",
+                Estado: "Abierto",
+                CasosXDepartamento: [{
+                        FechaIniciod: "2011-07-14T00:00:00.000+00:00",
+                        FechaFind: "2012-09-14T00:00:00.000+00:00",
+                        Departamento: {
+                            _id: "62a2b5d5665ac23ff8b3ca3b",
+                        }
+                    
+                }]
+
+            }).save(err => {
+                if (err) {
+                    console.log("error", err);
+                }
+
+                console.log("Se añadió un caso");
+            });
+
+        }
+    });
+}
+
+//-------------------------------Se añade un tramite------------------------------------------------
+function ingresarTramite() {
+    Tramite.estimatedDocumentCount((err, count) => {
+        if (!err && count === 0) {
+
+            new Tramite({
+                nombre: "Contrato laboral",
+                depaActual: { _id:"62a2b5d5665ac23ff8b3ca3b"},
+                ciclo: [
+                    {
+                        _id: "62a2b5d5665ac23ff8b3ca3b"
+                    }
+                ],
+                documentos: [
+                    {
+                        _id: "62a2b0a469aa0d51584cb523"
+                    }
+                ],
+                casos: [
+                    {
+                        _id: "62a2bd03c9a0e45900f0901f"
+                    }
+                ]
+            }).save(err => {
+                if (err) {
+                    console.log("error", err);
+                }
+
+                console.log("Se añadió un tramite");
+            });
+
+        }
+    });
 }

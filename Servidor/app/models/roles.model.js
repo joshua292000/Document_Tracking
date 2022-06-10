@@ -4,7 +4,15 @@ const Roles = mongoose.model(
   "Roles",
   new mongoose.Schema({
     nombre: String,
-    descripcion: String
+    descripcion: String,
+    rolXPermiso: 
+        {
+            //type: mongoose.Schema.Types.ObjectId,
+            
+            nombreP: String,
+            ref: "Permiso"
+        }
+    
   })
 );
 

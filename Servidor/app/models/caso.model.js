@@ -7,15 +7,13 @@ const Caso = mongoose.model(
      FechaInicio: Date,
      FechaFin: Date,
      Estado: String,
-     CasosXDepartamento:[{
-        Departamento:
-        {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Departamento",
-          FechaInicio: Date,
-          FechaFin: Date
-
-        }
+      CasosXDepartamento: [{
+          FechaIniciod: Date,
+          FechaFind: Date,
+          Departamento: {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: "Departamento",
+          }   
      }]
   })
 );

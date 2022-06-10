@@ -4,7 +4,10 @@ const Tramite = mongoose.model(
     "Tramite",
     new mongoose.Schema({
         nombre: String,
-        depaActual: String,
+        depaActual: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Departamento"
+        },
         ciclo: [
             {
                 type: mongoose.Schema.Types.ObjectId,

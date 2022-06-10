@@ -11,6 +11,10 @@ db.persona = require("./persona.model");
 db.departamento = require("./departamento.model");
 db.caso = require("./caso.model");
 db.organizacion = require("./organizacion.model");
+db.permiso = require("./permiso.model");
+db.parametro = require("./parametro.model");
+db.tramite = require("./tramite.model");
+db.documento = require("./documento.model");
 
 db.ROLES = ["user", "admin", "moderator"];
 
