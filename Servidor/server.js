@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 const db = require("./app/models");
 const Roles = db.roles;
 const Usuario = db.usuario;
+const Persona = db.persona;
 
 db.mongoose
   .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
@@ -26,7 +27,7 @@ db.mongoose
   .then(() => {
     console.log("Conexion establecida correctamente a MongoDB.");
     initial();
-   
+    initial2();
   })
   .catch(err => {
     console.error("Error de conexion", err);
@@ -49,6 +50,35 @@ app.listen(PORT, () => {
 });
 
 //-------------------------------Se añaden roles------------------------------------------------
+function initial2() {
+  Persona.estimatedDocumentCount((err, count) => {
+    if (!err && count === 0) {
+      
+      new Persona({
+
+        Nombre: "Kevin",
+        PApellido: "Mora",
+        SApellido: "Valverde",
+        FecNaci: "1999-07-14T00:00:00.000+00:00",
+        Edad: "22",
+        Nacionalidad: "CR",
+        direccion: "ahksdjlasjdlkajslkdasd",
+        Contacto:
+          {
+              Correo:"kevinamv14@gmail.com",
+              Telefono: "89264496"
+          },
+      }).save(err => {
+        if (err) {
+          console.log("error", err);
+        }
+
+        console.log("Añadido 'UNA' a la colección de organizacion");
+      });
+
+    }
+  });
+}
 function initial() {
   Roles.estimatedDocumentCount((err, count) => {
     if (!err && count === 0) {
