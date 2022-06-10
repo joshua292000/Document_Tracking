@@ -6,21 +6,19 @@ const Organizacion = mongoose.model(
     Nombre: String,
     Fecha_Creacion: Date,
     Tipo: String,
-   /* documentos: [
+    documentos: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Documentos"
       }
-    ]
-    
-    persona: [
+    ],
+    Empleados: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Persona"
       }
     ]
 
-    */
   })
 );
 
