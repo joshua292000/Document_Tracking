@@ -56,7 +56,8 @@ app.get("/", (req, res) => {
 
 require("./app/routes/auth.routes")(app);
 require("./app/routes/usuario.routes")(app);
-
+require("./app/routes/permiso.routes")(app);
+require("./app/routes/roles.routes")(app);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
@@ -102,10 +103,8 @@ function ingresarRoles() {
       new Roles({
           nombre: "user",
           descripcion: "Usuario",
-          rolXPermiso: 
-              {
-                  nombreP: Permiso.nombre
-              }
+          permiso: [{ _id: "62a7acbe55ed63073ca00f0a" }]
+              
           
       }).save(err => {
         if (err) {
@@ -118,10 +117,8 @@ function ingresarRoles() {
       new Roles({
           nombre: "moderator",
           descripcion: "Moderador",
-          rolXPermiso: 
-              {
-                  nombreP: Permiso.nombre
-              }
+          permiso: [{ _id: "62a7acbe55ed63073ca00f0a" }]
+             
           
       }).save(err => {
         if (err) {
@@ -134,10 +131,8 @@ function ingresarRoles() {
       new Roles({
           nombre: "admin",
           descripcion: "Administrador",
-          rolXPermiso: 
-              {
-                  nombreP: Permiso.nombre
-              }
+          permiso: [{ _id: "62a7acbe55ed63073ca00f0a" }]
+              
           
       }).save(err => {
         if (err) {

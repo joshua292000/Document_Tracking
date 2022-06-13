@@ -5,14 +5,12 @@ const Roles = mongoose.model(
   new mongoose.Schema({
     nombre: String,
     descripcion: String,
-    rolXPermiso: 
+    permiso: [
         {
-            //type: mongoose.Schema.Types.ObjectId,
-            
-            nombreP: String,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "Permiso"
         }
-    
+      ]
   })
 );
 
