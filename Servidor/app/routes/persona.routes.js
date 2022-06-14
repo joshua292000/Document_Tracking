@@ -9,7 +9,12 @@ module.exports = function(app) {
     next();
   });
 
-  app.post("/api/auth/crearpersona", controller.registrar);
+  app.post("/api/auth/crearpersona", controller.registrarpersona);
+  app.get("/api/auth/findallpersona", controller.findallpersona);
+
+  app.get("/api/auth/findByIdpersona/:personaId", controller.findByIdpersona);
+  app.put("/api/auth/actualizarpersona/:personaId", controller.actualizarpersona);
+  app.delete("/api/auth/eliminarpersona/:personaId", controller.eliminarpersona);
 
   
 };

@@ -10,6 +10,9 @@ module.exports = function(app) {
   });
 
   app.post("/api/auth/creardepartamento", controller.registrardepartamento);
+  app.get("/api/auth/findalldepartamento", controller.findalldepartamento);
 
-  
+  app.get("/api/auth/findByIddepartamento/:departamentoId", controller.findByIddepartamento);
+  app.put("/api/auth/actualizardepartamento/:departamentoId", controller.actualizardepartamento);
+  app.delete("/api/auth/eliminardepartamento/:departamentoId", controller.eliminardepartamento);
 };
