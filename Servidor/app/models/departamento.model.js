@@ -3,6 +3,10 @@ const mongoose = require("mongoose");
 const Departamento = mongoose.model(
   "Departamento",
   new mongoose.Schema({
+    Identificacion:{
+      type: String,
+      unique: true
+    },
     Nombre: String,
     Descripcion: String,
     Jefe:{

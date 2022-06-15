@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 const Caso = mongoose.model(
   "Caso",
   new mongoose.Schema({
-     NumeroCaso:String,
+     NumeroCaso:{
+                  type: String,
+                  unique: true
+     },
      FechaInicio: Date,
      FechaFin: Date,
      Estado: String,

@@ -3,6 +3,10 @@ const mongoose = require("mongoose");
 const Tramite = mongoose.model(
     "Tramite",
     new mongoose.Schema({
+        Identificacion: {
+            type: String,
+            unique: true
+        },
         nombre: String,
         depaActual: {
             type: mongoose.Schema.Types.ObjectId,

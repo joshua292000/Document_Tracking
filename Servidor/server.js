@@ -59,7 +59,7 @@ require("./app/routes/auth.routes")(app);
 require("./app/routes/usuario.routes")(app);
 require("./app/routes/permiso.routes")(app);
 require("./app/routes/roles.routes")(app);
-
+require("./app/routes/persona.routes")(app);
 
 
 const PORT = process.env.PORT || 8080;
@@ -73,12 +73,11 @@ function ingresarPersona() {
     if (!err && count === 0) {
       
       new Persona({
-
+        Identificacion: "117490004",
         Nombre: "Kevin",
         PApellido: "Mora",
         SApellido: "Valverde",
         FecNaci: "1999-07-14T00:00:00.000+00:00",
-        Identificacion: "117490004",
         Edad: "22",
         Nacionalidad: "CR",
         direccion: "ahksdjlasjdlkajslkdasd",
@@ -87,6 +86,7 @@ function ingresarPersona() {
               Correo:"kevinamv14@gmail.com",
               Telefono: "89264496"
           },
+        Usuario: { _id: "62a7acbe55ed63073ca00f0a" }
       }).save(err => {
         if (err) {
           console.log("error", err);

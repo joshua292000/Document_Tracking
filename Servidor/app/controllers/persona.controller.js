@@ -1,19 +1,20 @@
 const db = require("../models");
 const Persona = db.persona;
-
-//--------------------------Crear Persona------------------------------
+const Usuario = db.usuario;
+//--------------------------Crear Persona-------------------------------
 async function registrarpersona(req, res) {
     const persona = new Persona (req.body);
 
-    await persona .save((err, userStored) => {
+    await persona.save((err, persona) => {
         if (err) {
-            console.log(userStored);
+            console.log(persona);
             res.status(500).send({ message: "El usuario ya existe" });
         } else {
-            if (!userStored) {
+            if (!persona) {
                 res.status(404).send({ message: "Error creandon el usuario" });
             } else {
-                res.status(200).send({ user: userStored });
+                
+                  res.status(200).send({ user: persona });
             }
         }
     })
