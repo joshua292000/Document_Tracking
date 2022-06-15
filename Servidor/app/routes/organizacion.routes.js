@@ -1,4 +1,4 @@
-const controller = require("../controllers/roles.controller");
+const controller = require("../controllers/organizacion.controller");
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -9,6 +9,6 @@ module.exports = function(app) {
     next();
   });
 
-  app.post("/api/auth/crearrol", controller.crearrol);
+  app.post("/api/auth/registrar", controller.registrar);
   
 };
