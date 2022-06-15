@@ -19,7 +19,7 @@ async function registrarpersona(req, res) {
     })
 }
 
-//----------------------------Mostrar todos las personas---------------------------
+//----------------------------Mostrar todas las personas---------------------------
 async function findallpersona(req, res) {
 
     const persona = await Persona.find((err, userStored) => {
@@ -35,9 +35,24 @@ async function findallpersona(req, res) {
     })
 }
 //----------------------------Mostrar persona por id-------------------------
-async function findByIdpersona(req, res) {
+async function findbyidpersona(req, res) {
 
     const persona = await Persona.findById(req.params.personaId, (err, userStored) => {
+        if (err) {
+            res.status(500).send({ message: "La persona consultada no existe" });
+        } else {
+            if (!userStored) {
+                res.status(404).send({ message: "Error cargando la persona" });
+            } else {
+                res.status(200).send({ user: userStored });
+            }
+        }
+    })
+}
+
+async function findbyIdentypersona(req, res) {
+
+    const persona = await Persona.findOne({Nombre: new RegExp('^'+req.params.personaIdenty+'$', "i")}, (err, userStored) => {
         if (err) {
             res.status(500).send({ message: "La persona consultada no existe" });
         } else {
@@ -80,4 +95,4 @@ async function eliminarpersona(req, res) {
 
 
 }
-module.exports={registrarpersona,findallpersona,findByIdpersona,actualizarpersona,eliminarpersona};
+module.exports={registrarpersona,findallpersona,findbyidpersona,actualizarpersona,eliminarpersona,findbyIdentypersona};

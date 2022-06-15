@@ -33,9 +33,10 @@ db.mongoose
   })
   .then(() => {
     console.log("Conexion establecida correctamente a MongoDB.");
+    ingresarPersona();
     ingresarPermiso();
     ingresarRoles();
-    ingresarPersona();
+    
     ingresarDepartamento();
     ingresarOrganizacion();
     ingresarParametro();
@@ -61,8 +62,6 @@ require("./app/routes/roles.routes")(app);
 
 
 
-
-
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}.`);
@@ -79,6 +78,7 @@ function ingresarPersona() {
         PApellido: "Mora",
         SApellido: "Valverde",
         FecNaci: "1999-07-14T00:00:00.000+00:00",
+        Identificacion: "117490004",
         Edad: "22",
         Nacionalidad: "CR",
         direccion: "ahksdjlasjdlkajslkdasd",

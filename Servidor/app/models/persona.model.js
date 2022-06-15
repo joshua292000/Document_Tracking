@@ -7,6 +7,7 @@ const Persona = mongoose.model(
       PApellido: String,
       SApellido: String,
       FecNaci: Date,
+      Identificacion: String,
       Edad: Number,
       Nacionalidad: String,
       direccion: String,

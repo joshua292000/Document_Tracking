@@ -12,7 +12,11 @@ module.exports = function(app) {
   app.post("/api/auth/crearpersona", controller.registrarpersona);
   app.get("/api/auth/findallpersona", controller.findallpersona);
 
-  app.get("/api/auth/findByIdpersona/:personaId", controller.findByIdpersona);
+  app.get("/api/auth/findbyidpersona/:personaId", controller.findbyidpersona);
+
+  app.get("/api/auth/findbyIdentypersona/:personaIdenty", controller.findbyIdentypersona);
+
+
   app.put("/api/auth/actualizarpersona/:personaId", controller.actualizarpersona);
   app.delete("/api/auth/eliminarpersona/:personaId", controller.eliminarpersona);
 
