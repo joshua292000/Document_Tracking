@@ -6,10 +6,12 @@ import "primeicons/primeicons.css";
 import React from 'react';
 import {Logig} from "./Vistas/Logig";
 import {InfoDepartamento} from "./Vistas/Departamentos";
+import {TabMenuDemo}  from './Componentes/Utils';
 
 export function App() {
   return (
     <BrowserRouter>
+      <TabMenuDemo></TabMenuDemo>
       <Routes>
           <Route path="/" element={<Logig/>}/>
           <Route path="/Departamentos" element={<InfoDepartamento/>}/>
