@@ -10,4 +10,8 @@ const api = express.Router();
   api.put("/departamento/actualizardepartamento/:departamentoId", controller.actualizardepartamento);
   api.delete("/departamento/eliminardepartamento/:departamentoId", controller.eliminardepartamento);
 
+  api.get("/departamento/findByName/:Nombre", controller.findByName);
+
+  api.get("/departamento/getByIdOrg/:id", controller.getByIdOrg);
+
 module.exports = api;

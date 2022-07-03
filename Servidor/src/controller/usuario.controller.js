@@ -71,4 +71,48 @@ async function findByNameAndPassword(req, res) {
     }).clone().catch(function (err) { console.log(err) })
 }
 
-module.exports = {registrarusuario, findByIdUsuario, findByNameAndPassword};
+//-----------------------------Actualizar usuario--------------------------
+async function actualizarUsuario(req, res) {
+    bcrypt.hash(req.body.contrasena, null, null, function (err, hash) {
+         if (err) {
+             res.status(500).send({ message: "Error enciptando la clave." });
+         } else {
+             console.log("Hast "+hash);
+             req.body.contrasena = hash;
+             const usuario= Usuario.findByIdAndUpdate(req.params.usuarioId, req.body, (err, userStored) => {
+                 if (err) {
+                     res.status(500).send({ message: "El usuario a actualizar no existe" });
+                 } else {
+                     if (!userStored) {
+                         res.status(404).send({ message: "Error actualizando el usuario" });
+                     } else {
+                         res.status(200).send({ status: 'Usuario actualizado correctamente' });
+                     }
+                 }
+             }).clone().catch(function (err) { console.log(err) })
+         }
+     })
+     console.log();
+     
+ 
+ 
+ }
+ 
+ //-----------------------------Mostrar usuario por nombre--------------------------
+ async function findByName(req, res) {
+ 
+     const usuario = await Usuario.find({nombre_usuario: req.params.Nombre}, (err, userStored) => {
+         if (err) {
+             res.status(500).send({ message: "El usuario consultada no existe" });
+         } else {
+             if (!userStored) {
+                 res.status(404).send({ message: "Error cargando el usuario" });
+             } else {
+                 res.status(200).send({ user: userStored });
+             }
+         }
+     }).clone().catch(function (err) { console.log(err) })
+   
+ }
+ 
+ module.exports = {registrarusuario, findByIdUsuario, findByNameAndPassword,actualizarUsuario,findByName};

@@ -19,65 +19,98 @@ async function registrartramite(req, res) {
     })
 }
 
-//----------------------------Mostrar todos los trámites---------------------------
+//----------------------------Mostrar todos los trï¿½mites---------------------------
 async function findalltramites(req, res) {
 
     const tramites = await Tramite.find((err, userStored) => {
         if (err) {
-            res.status(500).send({ message: "No existen trámistes registrados" });
+            res.status(500).send({ message: "No existen trï¿½mistes registrados" });
         } else {
             if (!userStored) {
-                res.status(404).send({ message: "Error cargando los trámites" });
+                res.status(404).send({ message: "Error cargando los trï¿½mites" });
             } else {
                 res.status(200).send({ user: userStored });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 }
-//----------------------------Mostrar trámite por id-------------------------
+//----------------------------Mostrar trï¿½mite por id-------------------------
 async function findByIdtramite(req, res) {
 
     const tramite = await Tramite.findById(req.params.tramiteId, (err, userStored) => {
         if (err) {
-            res.status(500).send({ message: "El trámite consultado no existe" });
+            res.status(500).send({ message: "El trï¿½mite consultado no existe" });
         } else {
             if (!userStored) {
-                res.status(404).send({ message: "Error cargando el trámite" });
+                res.status(404).send({ message: "Error cargando el trï¿½mite" });
             } else {
                 res.status(200).send({ user: userStored });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 }
-//-----------------------------Actualizar trámite--------------------------
+//-----------------------------Actualizar trï¿½mite--------------------------
 async function actualizartramite(req, res) {
 
     const tramite= await Tramite.findByIdAndUpdate(req.params.tramiteId, req.body, (err, userStored) => {
         if (err) {
-            res.status(500).send({ message: "El trámite a actualizar no existe" });
+            res.status(500).send({ message: "El trï¿½mite a actualizar no existe" });
         } else {
             if (!userStored) {
-                res.status(404).send({ message: "Error actualizando el trámite" });
+                res.status(404).send({ message: "Error actualizando el trï¿½mite" });
             } else {
-                res.status(200).send({ status: 'Trámite actualizado correctamente' });
+                res.status(200).send({ status: 'Trï¿½mite actualizado correctamente' });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 
 
 }
 
-//------------------------------Eliminar trámite------------------------------
+//------------------------------Eliminar trï¿½mite------------------------------
 async function eliminartramite(req, res) {
 
     await Tramite.findByIdAndDelete(req.params.tramiteId, (err, userStored) => {
         if (err) {
-            res.status(500).send({ message: "El trámite a eliminar no existe" });
+            res.status(500).send({ message: "El trï¿½mite a eliminar no existe" });
         } else {
-            res.status(200).send({ status: 'Trámite eliminado' });
+            res.status(200).send({ status: 'Trï¿½mite eliminado' });
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 
 
 }
-module.exports = { registrartramite, findalltramites, findByIdtramite, actualizartramite, eliminartramite};
+
+//------------------------------Busqueda por id de organizacion------------------------------
+async function findByIdOrg(req, res) {
+
+    const tramite = await Tramite.find({organizacion_id: req.params.id }, (err, userStored) => {
+        if (err) {
+            res.status(500).send({ message: "No existen tramites registrados" });
+        } else {
+            if (!userStored) {
+                res.status(404).send({ message: "Error cargando los tramites" });
+            } else {
+                res.status(200).send({ user: userStored });
+            }
+        }
+    }).clone().catch(function (err) { console.log(err) })
+}
+
+
+//------------------------------Busqueda por id de departamento------------------------------
+async function getByIdDep(req, res) {
+
+    await Tramite.find({ id_departamento: req.params.id }, (err, userStored) => {
+        if (err) {
+            res.status(500).send({ message: "No existen departamentos registrados" });
+        } else {
+            if (!userStored) {
+                res.status(404).send({ message: "Error cargando los departamentos" });
+            } else {
+                res.status(200).send({ user: userStored });
+            }
+        }
+    }).clone().catch(function (err) { console.log(err) })
+}
+module.exports = { registrartramite, findalltramites, findByIdtramite, actualizartramite, eliminartramite, findByIdOrg, getByIdDep};

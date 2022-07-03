@@ -32,7 +32,7 @@ async function findallcaso(req, res) {
                 res.status(200).send({ user: userStored });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 }
 //----------------------------Mostrar caso por id-------------------------
 async function findByIdcaso(req, res) {
@@ -47,7 +47,7 @@ async function findByIdcaso(req, res) {
                 res.status(200).send({ user: userStored });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 }
 //-----------------------------Actualizar caso--------------------------
 async function actualizarcaso(req, res) {
@@ -62,7 +62,7 @@ async function actualizarcaso(req, res) {
                 res.status(200).send({ status: 'Caso actualizado correctamente' });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 
 
 }
@@ -76,8 +76,24 @@ async function eliminarcaso(req, res) {
         } else {
             res.status(200).send({ status: 'Caso eliminado' });
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 
 
 }
-module.exports={registrarcaso,findallcaso,findByIdcaso,actualizarcaso,eliminarcaso};
+
+//-----------------------------------------Casos por Id de organizacion------------------------
+async function findByIdOrganizacion(req, res) {
+
+    const caso = await Caso.find({ Organizacion_id: req.params.id }, (err, userStored) => {
+        if (err) {
+            res.status(500).send({ message: "El caso consultado no existe" });
+        } else {
+            if (!userStored) {
+                res.status(404).send({ message: "Error cargando el caso" });
+            } else {
+                res.status(200).send({ user: userStored });
+            }
+        }
+    }).clone().catch(function (err) { console.log(err) })
+}
+module.exports={registrarcaso,findallcaso,findByIdcaso,actualizarcaso,eliminarcaso,findByIdOrganizacion};

@@ -16,7 +16,7 @@ async function crearpermiso(req, res) {
                 res.status(200).send({ user: userStored });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 }
 //----------------------------Mostrar todos los permisos---------------------------
 async function findallpermisos(req, res) {
@@ -31,7 +31,7 @@ async function findallpermisos(req, res) {
                 res.status(200).send({ user: userStored });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 }
 
 //-----------------------------Mostrar permiso por id--------------------------
@@ -47,7 +47,7 @@ async function findByIdpermiso(req, res) {
                 res.status(200).send({ user: userStored });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 }
 
 //-----------------------------Actualizar permisos--------------------------
@@ -63,7 +63,7 @@ async function actualizarpermiso(req, res) {
                 res.status(200).send({ status: 'Permiso actualizado correctamente' });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 
 
 }
@@ -77,7 +77,7 @@ async function eliminarpermiso(req, res) {
         } else {
             res.status(200).send({ status: 'Permiso eliminado' });
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 
 
 }

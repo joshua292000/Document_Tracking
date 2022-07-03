@@ -14,13 +14,10 @@ const Departamento = mongoose.model(
         ref: "Persona"
     },
 
-    Contacto:
-    {
         Correo: String,
-        Telefono: Number
-    },
-    organizacion:{type: mongoose.Schema.Types.ObjectId,
-                   ref: "Organizacion"}
+        Telefono: Number,
+         
+    organizacion_id: String
   })
 );
 module.exports = Departamento;

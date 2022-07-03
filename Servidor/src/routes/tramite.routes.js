@@ -13,4 +13,8 @@ api.put("/tramite/actualizartramite/:tramiteId", controller.actualizartramite);
 
 api.delete("/tramite/eliminartramite/:tramiteId", controller.eliminartramite);
 
+api.get("/tramite/findByIdOrg/:id", controller.findByIdOrg);
+
+api.get("/tramite/getByIdDep/:id", controller.getByIdDep);
+
 module.exports = api;

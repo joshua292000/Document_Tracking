@@ -10,7 +10,15 @@ const Documento = mongoose.model(
     Nombre: String,
     Anexo: String,
     Tipo: String,
-    Descripcion: String
+    Estado: Boolean,
+    Tramite_id:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Tramite",
+    },
+    Caso_id:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Caso",
+    },
     
   })
 );

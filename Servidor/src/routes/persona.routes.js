@@ -10,7 +10,7 @@ api.get("/persona/findallpersona", controller.findallpersona);
 
 api.get("/persona/findbyidpersona/:personaId", controller.findbyidpersona);
 
-api.get("/persona/findbyIdentypersona/:personaIdenty", controller.findbyIdentypersona);
+api.get("/persona/getAllByIdDepartamento/:id", controller.getAllByIdDepartamento);
 
 
 api.put("/persona/actualizarpersona/:personaId", controller.actualizarpersona);

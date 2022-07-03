@@ -8,7 +8,7 @@ const Usuario = mongoose.model(
       unique: true
     },
     contrasena: String,
-    organizacion:{type: mongoose.Schema.Types.ObjectId,
+    organizacion_id:{type: mongoose.Schema.Types.ObjectId,
                   ref: "Organizacion"}
   })
 );

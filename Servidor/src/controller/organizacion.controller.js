@@ -15,7 +15,7 @@ async function registrar(req, res) {
                 console.log(organizacion);
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 }
 
 //----------------------------Mostrar todos las organizaciones---------------------------
@@ -31,7 +31,7 @@ async function findallorganizacion(req, res) {
                 res.status(200).send({ user: userStored });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 }
 //----------------------------Mostrar organizacion por id-------------------------
 async function findByIdorganizacion(req, res) {
@@ -46,7 +46,7 @@ async function findByIdorganizacion(req, res) {
                 res.status(200).send({ user: userStored });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 }
 //-----------------------------Actualizar organizacion--------------------------
 async function actualizarorganizacion(req, res) {
@@ -61,12 +61,12 @@ async function actualizarorganizacion(req, res) {
                 res.status(200).send({ status: 'Organizacion actualizada correctamente' });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 
 
 }
 
-//------------------------------Eliminar Departamento------------------------------
+//------------------------------Eliminar Organizacion------------------------------
 async function eliminarorganizacion(req, res) {
 
     await Organizacion.findByIdAndDelete(req.params.organizacionId, (err, userStored) => {
@@ -75,8 +75,25 @@ async function eliminarorganizacion(req, res) {
         } else {
             res.status(200).send({ status: 'Organizacion eliminado' });
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 
 
 }
-module.exports = {registrar, findallorganizacion, findByIdorganizacion, actualizarorganizacion, eliminarorganizacion};
+
+//-----------------------------Mostrar Organizacion por nombre--------------------------
+async function findByName(req, res) {
+
+    const organizacion = await Organizacion.find({Nombre: req.params.Nombre}, (err, userStored) => {
+        if (err) {
+            res.status(500).send({ message: "La organizacion consultada no existe" });
+        } else {
+            if (!userStored) {
+                res.status(404).send({ message: "Error cargando la organizacion" });
+            } else {
+                res.status(200).send({ user: userStored });
+            }
+        }
+    }).clone().catch(function (err) { console.log(err) })
+  
+}
+module.exports = {registrar, findallorganizacion, findByIdorganizacion, actualizarorganizacion, eliminarorganizacion, findByName};

@@ -16,7 +16,7 @@ async function crearRol(req, res) {
               res.status(200).send({ user: userStored });
           }
       }
-  })
+  }).clone().catch(function (err) { console.log(err) })
 }
 //----------------------------Mostrar todos los roles---------------------------
 async function findallroles(req, res) {
@@ -31,7 +31,7 @@ async function findallroles(req, res) {
               res.status(200).send({ user: userStored });
           }
       }
-  })
+  }).clone().catch(function (err) { console.log(err) })
 }
 
 //-----------------------------Mostrar rol por id--------------------------
@@ -47,8 +47,28 @@ async function findByIdrol(req, res) {
               res.status(200).send({ user: userStored });
           }
       }
-  })
+  }).clone().catch(function (err) { console.log(err) })
 }
+
+
+
+//-----------------------------Mostrar rol por nombre--------------------------
+async function findByName(req, res) {
+
+    const roles = await Roles.find({nombre: req.params.nombre}, (err, userStored) => {
+        if (err) {
+            res.status(500).send({ message: "El rol consultado no existe" });
+        } else {
+            if (!userStored) {
+                res.status(404).send({ message: "Error cargando el rol" });
+            } else {
+                res.status(200).send({ user: userStored });
+            }
+        }
+    }).clone().catch(function (err) { console.log(err) })
+  
+}
+
 
 //-----------------------------Actualizar roles--------------------------
 async function actualizarRol(req, res) {
@@ -63,7 +83,7 @@ async function actualizarRol(req, res) {
               res.status(200).send({ status: 'rol actualizado correctamente' });
           }
       }
-  })
+  }).clone().catch(function (err) { console.log(err) })
 
 
 }
@@ -77,8 +97,8 @@ async function eliminarRol(req, res) {
       } else {
           res.status(200).send({ status: 'rol eliminado' });
       }
-  })
+  }).clone().catch(function (err) { console.log(err) })
 
 
 }
-module.exports = { crearRol, findallroles, findByIdrol, actualizarRol, eliminarRol };
+module.exports = { crearRol, findallroles, findByIdrol, findByName, actualizarRol, eliminarRol };

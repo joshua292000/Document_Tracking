@@ -16,16 +16,13 @@ const Persona = mongoose.model(
       Edad: Number,
       Nacionalidad: String,
       direccion: String,
-      Contacto:
-          {
-              Correo: String,
-              Telefono: Number
-          },
+      Correo: String,
+      Telefono: Number,
     rol:{        
             type: mongoose.Schema.Types.ObjectId,          
             ref: "Roles"
     },
-    departamento:{type: mongoose.Schema.Types.ObjectId,          
+    departamento_id:{type: mongoose.Schema.Types.ObjectId,          
                    ref: "Departamento"}
   })
 );

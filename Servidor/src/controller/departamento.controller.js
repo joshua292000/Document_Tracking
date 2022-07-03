@@ -32,7 +32,7 @@ async function findalldepartamento(req, res) {
                 res.status(200).send({ user: userStored });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 }
 //----------------------------Mostrar Departamento por id-------------------------
 async function findByIddepartamento(req, res) {
@@ -47,7 +47,7 @@ async function findByIddepartamento(req, res) {
                 res.status(200).send({ user: userStored });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 }
 //-----------------------------Actualizar Departamento--------------------------
 async function actualizardepartamento(req, res) {
@@ -62,7 +62,7 @@ async function actualizardepartamento(req, res) {
                 res.status(200).send({ status: 'Departamento actualizado correctamente' });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 
 
 }
@@ -76,8 +76,42 @@ async function eliminardepartamento(req, res) {
         } else {
             res.status(200).send({ status: 'Departamento eliminado' });
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 
 
 }
-module.exports={registrardepartamento,findalldepartamento,findByIddepartamento,actualizardepartamento,eliminardepartamento};
+
+//-----------------------------Mostrar departamento por nombre--------------------------
+async function findByName(req, res) {
+
+    const departamento = await Departamento.find({Nombre: req.params.Nombre}, (err, userStored) => {
+        if (err) {
+            res.status(500).send({ message: "El departamento consultado no existe" });
+        } else {
+            if (!userStored) {
+                res.status(404).send({ message: "Error cargando el departamento" });
+            } else {
+                res.status(200).send({ user: userStored });
+            }
+        }
+    }).clone().catch(function (err) { console.log(err) })
+  
+}
+
+//-------------------Mostrar departamentos por organizacion------------------------------
+async function getByIdOrg(req, res) {
+
+    await Departamento.find({ organizacion_id: req.params.id }, (err, userStored) => {
+        if (err) {
+            res.status(500).send({ message: "No existen departamentos registrados" });
+        } else {
+            if (!userStored) {
+                res.status(404).send({ message: "Error cargando los departamentos" });
+            } else {
+                res.status(200).send({ user: userStored });
+            }
+        }
+    }).clone().catch(function (err) { console.log(err) })
+}
+
+module.exports={registrardepartamento,findalldepartamento,findByIddepartamento,actualizardepartamento,eliminardepartamento, findByName, getByIdOrg};

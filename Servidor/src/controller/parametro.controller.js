@@ -1,77 +1,77 @@
 const db = require("../models");
 const Parametro = db.parametro;
 
-//--------------------------Crear Parámetro------------------------------
+//--------------------------Crear Parï¿½metro------------------------------
 async function crearparametro(req, res) {
     const parametro = new Parametro(req.body);
 
     await parametro.save((err, userStored) => {
         if (err) {
-            res.status(500).send({ message: "El parámetro ya existe" });
+            res.status(500).send({ message: "El parï¿½metro ya existe" });
         } else {
             if (!userStored) {
-                res.status(404).send({ message: "Error creando el parámetro" });
+                res.status(404).send({ message: "Error creando el parï¿½metro" });
             } else {
                 res.status(200).send({ user: userStored });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 }
-//----------------------------Mostrar todos los parámetros---------------------------
+//----------------------------Mostrar todos los parï¿½metros---------------------------
 async function findallparametros(req, res) {
 
     const parametros = await Parametro.find((err, userStored) => {
         if (err) {
-            res.status(500).send({ message: "No existen parámetros registrados" });
+            res.status(500).send({ message: "No existen parï¿½metros registrados" });
         } else {
             if (!userStored) {
-                res.status(404).send({ message: "Error cargando los parámetros" });
+                res.status(404).send({ message: "Error cargando los parï¿½metros" });
             } else {
                 res.status(200).send({ user: userStored });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 }
-//-----------------------------Mostrar parámetro por id------------------------
+//-----------------------------Mostrar parï¿½metro por id------------------------
 async function findByIdparametro(req, res) {
 
     const parametro = await Parametro.findById(req.params.parametroId, (err, userStored) => {
         if (err) {
-            res.status(500).send({ message: "El parámetro consultado no existe" });
+            res.status(500).send({ message: "El parï¿½metro consultado no existe" });
         } else {
             if (!userStored) {
-                res.status(404).send({ message: "Error cargando el parámetro" });
+                res.status(404).send({ message: "Error cargando el parï¿½metro" });
             } else {
                 res.status(200).send({ user: userStored });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 }
-//-----------------------------Actualizar parámetros--------------------------
+//-----------------------------Actualizar parï¿½metros--------------------------
 async function actualizarparametro(req, res) {
 
     const parametro = await Parametro.findByIdAndUpdate(req.params.parametroId, req.body, (err, userStored) => {
         if (err) {
-            res.status(500).send({ message: "El parámetro a actualizar no existe" });
+            res.status(500).send({ message: "El parï¿½metro a actualizar no existe" });
         } else {
             if (!userStored) {
-                res.status(404).send({ message: "Error actualizando el parámetro" });
+                res.status(404).send({ message: "Error actualizando el parï¿½metro" });
             } else {
-                res.status(200).send({ status: 'Parámetro actualizado correctamente' });
+                res.status(200).send({ status: 'Parï¿½metro actualizado correctamente' });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 }
 
-//------------------------------Eliminar parámetro------------------------------
+//------------------------------Eliminar parï¿½metro------------------------------
 async function eliminarparametro(req, res) {
 
     await Parametro.findByIdAndDelete(req.params.parametroId, (err, userStored) => {
         if (err) {
-            res.status(500).send({ message: "El parámetro a eliminar no existe" });
+            res.status(500).send({ message: "El parï¿½metro a eliminar no existe" });
         } else {
-            res.status(200).send({ status: 'Parámetro eliminado' });
+            res.status(200).send({ status: 'Parï¿½metro eliminado' });
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 }
 module.exports = { crearparametro, findallparametros, findByIdparametro, actualizarparametro, eliminarparametro };

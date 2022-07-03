@@ -17,7 +17,7 @@ async function registrarpersona(req, res) {
                   res.status(200).send({ user: persona });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 }
 
 //----------------------------Mostrar todas las personas---------------------------
@@ -33,7 +33,7 @@ async function findallpersona(req, res) {
                 res.status(200).send({ user: userStored });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 }
 //----------------------------Mostrar persona por id-------------------------
 async function findbyidpersona(req, res) {
@@ -48,10 +48,10 @@ async function findbyidpersona(req, res) {
                 res.status(200).send({ user: userStored });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 }
 
-async function findbyIdentypersona(req, res) {
+/*async function findbyIdentypersona(req, res) {
 
     const persona = await Persona.findOne({Nombre: new RegExp('^'+req.params.personaIdenty+'$', "i")}, (err, userStored) => {
         if (err) {
@@ -63,8 +63,8 @@ async function findbyIdentypersona(req, res) {
                 res.status(200).send({ user: userStored });
             }
         }
-    })
-}
+    }).clone().catch(function (err) { console.log(err) })
+}*/
 //-----------------------------Actualizar persona--------------------------
 async function actualizarpersona(req, res) {
 
@@ -78,7 +78,7 @@ async function actualizarpersona(req, res) {
                 res.status(200).send({ status: 'Persona actualizada correctamente' });
             }
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 
 
 }
@@ -92,8 +92,33 @@ async function eliminarpersona(req, res) {
         } else {
             res.status(200).send({ status: 'Persona eliminada' });
         }
-    })
+    }).clone().catch(function (err) { console.log(err) })
 
 
 }
-module.exports={registrarpersona,findallpersona,findbyidpersona,actualizarpersona,eliminarpersona,findbyIdentypersona};
+
+//---------------Obtienen todos los empleados de un departamento------------------------
+async function getAllByIdDepartamento(req, res) {
+
+    await Persona.find({ departamento_id: req.params.id }, (err, userStored) => {
+        if (err) {
+            res.status(500).send({ message: "El usuario consultado no existe" });
+        } else {
+            if (!userStored) {
+                res.status(404).send({ message: "Error cargando los usuarios" });
+            } else {
+
+                if (userStored.length > 0) {
+
+                    res.status(200).send({ user: userStored });
+
+                } else {
+                    res.status(500).send({ message: "El usuario consultado no existe" });
+                }
+
+            }
+        }
+    }).clone().catch(function (err) { console.log(err) })
+}
+
+module.exports={registrarpersona,findallpersona,findbyidpersona,actualizarpersona,eliminarpersona,getAllByIdDepartamento};
