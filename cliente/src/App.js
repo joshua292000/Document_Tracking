@@ -6,33 +6,15 @@ import "primeicons/primeicons.css";
 import React from 'react';
 import {Logig} from "./Vistas/Logig";
 import {InfoDepartamento} from "./Vistas/Departamentos";
-import { IngresarEmpleado } from "./Vistas/Empleados";
-import {InfoUsuarios} from "./Vistas/Usuarios";
-import {InfoOrganizacion} from "./Vistas/Organizacion";
-import {InfoCuenta} from "./Vistas/NuevaContra";
-import Tramites from "./Vistas/Tramites";
-import EditarTramite from "./Vistas/EditarTramites";
-import EditarDocumento from "./Vistas/EditarDocumento";
-import EditarCiclo from "./Vistas/EditarCiclo";
-import {GalleriaIndicatorDemo} from "./Vistas/Inicio";
-import "./App.css";
-
+import {TabMenuDemo}  from './Componentes/Utils';
 
 export function App() {
   return (
     <BrowserRouter>
+      <TabMenuDemo></TabMenuDemo>
       <Routes>
           <Route path="/" element={<Logig/>}/>
           <Route path="/Departamentos" element={<InfoDepartamento/>}/>
-          <Route path="/Usuarios" element={<InfoUsuarios/>}/>
-          <Route path="/Organizacion" element={<InfoOrganizacion/>}/>
-          <Route path="/Cuenta" element={<InfoCuenta/>}/>
-          <Route path="/Empleados" element={<IngresarEmpleado/>}/>
-          <Route path="/Tramites" element={<Tramites/>}/>
-          <Route path="/EditarTramites" element={<EditarTramite/>}/>
-          <Route path="/EditarDocumento" element={<EditarDocumento/>}/>
-          <Route path="/EditarCiclo" element={<EditarCiclo/>}/>
-          <Route path="/Inicio" element={<GalleriaIndicatorDemo/>}/>
       </Routes>
     </BrowserRouter>
   );
