@@ -9,10 +9,10 @@ const Departamento = mongoose.model(
     },
     Nombre: String,
     Descripcion: String,
-    Jefe:{
+    Jefe:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Persona"
-    },
+    }],
 
         Correo: String,
         Telefono: Number,
