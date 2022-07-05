@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Modal, Button, Input, Form, Alert, Select  } from 'antd';
+import { Modal, Input, Form, Alert, Select  } from 'antd';
 import { useLocation } from 'react-router-dom';
 import {ContainerOutlined,AlignCenterOutlined, HomeOutlined} from '@ant-design/icons';
 import { message } from 'antd';
@@ -7,7 +7,7 @@ import swal from 'sweetalert';
 import Swal from 'sweetalert2';
 import axios from "axios";
 import Cookies from "universal-cookie";
-
+import { Button } from 'primereact/button'
 
 
 const App = () => {
@@ -117,9 +117,8 @@ const App = () => {
 
     return(
         <>
-            <button className='button-62' onClick={() => setVisible(true)}>
-                Agregar departamento
-            </button>
+             <Button icon="pi pi-plus" className="p-button-rounded p-button-info p-button-lg" onClick={() => setVisible(true)} label="Agregar Departamento" />
+    <br/>
 
             <Modal
                 title="Agregar departamento al ciclo"
@@ -168,9 +167,7 @@ const App = () => {
                 span: 16,
                 }}
             >
-                <Button type="primary" htmlType="submit">
-                Registrar
-                </Button>
+                <Button icon="pi pi-plus" className="p-button-rounded p-button-info p-button-lg"  label="Registrar" />
             </Form.Item>
             </Form>
             </Modal>

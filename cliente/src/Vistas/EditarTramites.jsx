@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import NavBar from "./NavBar.js";
 import 'react-perfect-scrollbar/dist/css/styles.css';
 //import ScrollBars  from 'react-custom-scrollbars';
-import { Alert, Form, Input, Button, Select, DatePicker, Dropdown, Menu } from 'antd';
+import { Alert, Form, Input, Select, DatePicker, Dropdown, Menu } from 'antd';
 import {ContainerOutlined,AlignCenterOutlined, HomeOutlined} from '@ant-design/icons';
 import swal from 'sweetalert';
 import TablaDocumentos from "../Componentes/Tramites/TablaDocumentos";
@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom';
 import CrearDocumento from "../Componentes/Tramites/CrearDocumento";
 //import EditarCiclo from './EditarCiclo';
 import CrearCiclo from "../Componentes/Tramites/CrearCiclo"
-
+import { Button } from 'primereact/button'
 
 const { Option } = Select;
 
@@ -251,9 +251,8 @@ function EditarTramite(props){
                             span: 10,
                             }}
                         >
-                        <button type="primary" className="button-62">
-                             Actualizar
-                        </button>
+                         <Button id= "ActualizarTramite" type="primary" className="p-button-rounded p-button-info p-button-lg" label= "Actualizar"/>
+    
                         </Form.Item>
                         </Form>
                     </div>
@@ -265,7 +264,7 @@ function EditarTramite(props){
                     <div className="container_button">
                     <CrearDocumento mostrar={mostrarSms}/>
                     </div>
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="70%" height="70%" id="ResponsiveContainer">
                 <div className="container_table">
                     <TablaDocumentos/>
                 </div>
@@ -278,7 +277,7 @@ function EditarTramite(props){
                 <div className="container_button">
                     <CrearCiclo/>
                 </div>
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="70%" height="70%" id="ResponsiveContainer">
                 <div className="container_table">
                     <TablaCiclos/>
                 </div>

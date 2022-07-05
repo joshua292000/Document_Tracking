@@ -70,7 +70,7 @@ const App = ({idU, cedulaU, nombreU, PapellidoU, SApellidoU, fechaU, edadU, naci
 
         }
 
-        axios.put('http://localhost:3977/api/v1/empleados/actualizar/'+idU, newData)
+        axios.put('http://localhost:8080/api/v1/persona/actualizarpersona/'+idU, newData)
         .then(({data}) => {
   
           setTimeout(() => {

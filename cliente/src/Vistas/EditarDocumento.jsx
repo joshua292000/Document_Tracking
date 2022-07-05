@@ -4,14 +4,14 @@ import { useLocation } from 'react-router-dom';
 import NavBar from "./NavBar.js";
 import 'react-perfect-scrollbar/dist/css/styles.css';
 //import ScrollBars  from 'react-custom-scrollbars';
-import { Alert, Form, Input, Button, Select } from 'antd';
+import { Alert, Form, Input, Select } from 'antd';
 //import { Link } from 'react-router-dom';
 import {ContainerOutlined,AlignCenterOutlined, HomeOutlined, CommentOutlined} from '@ant-design/icons';
 import swal from 'sweetalert';
 import axios from "axios";
 import Cookies from "universal-cookie";
 import Swal from 'sweetalert2';
-
+import { Button } from 'primereact/button';
 
 function EditarDocumento(props){
 
@@ -271,9 +271,8 @@ function onChangeEstado(value){
                       span: 10,
                       }}
                   >
-                  <button type="primary" className="button-62">
-                       Actualizar
-                  </button>
+                    <Button icon="pi pi-plus" className="p-button-rounded p-button-info p-button-lg"  label="Actualizar" />
+    <br/>
                   </Form.Item>
                   </Form>
               </div>

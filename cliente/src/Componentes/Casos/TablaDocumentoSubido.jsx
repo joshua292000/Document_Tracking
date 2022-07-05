@@ -1,69 +1,77 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Table, Input, Space } from 'antd';
+import { Table, Input, Button, Space } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import {useNavigate } from 'react-router-dom';
-import ActualizarEmpleado from '../Departamento/ActualizarEmpleado';
+import SubirDocumento from "./SubirDocumento";
+import Swal from 'sweetalert2';
 import axios from "axios";
 import 'antd/dist/antd.min.css';
-import { Button } from 'primereact/button'
 
 const App = (props) => {
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
 
-  const navigate = useNavigate();
+  const {id_c} = props;
 
-  const [dataSource, setDataSource] = useState([
+  const consultaTraking = () => {
+    
+  }
 
-  ]);
+  function getEstado(estado){
+    if(estado){
+        return "Subido";
+    }else{
+        return "No subido";
+    }
+  }
+
+  function cargarArchivo(url){
+    var win = window.open(url, '_blank');
+    win.focus();
+  }
 
   useEffect(() => {
     return () => {
-      (async () => {
-        axios.get('http://localhost:8080/api/v1/persona/getAllByIdDepartamento/'+props.id_dep)
-        .then(({data}) => {
+        (async () => {
+            console.log(id_c);
 
-          for(let i = 0; i < data.user.length; i++){   
-            const newUser = {
-            key: i,
-            id: data.user[i]._id,
-            cedula: data.user[i].Identificacion,
-            nombre: data.user[i].Nombre,
-            Papellido: data.user[i].PApellido,
-            Sapellido: data.user[i].SApellido,         
-            fecha: data.user[i].FecNaci,
-            puesto: data.user[i].rol,
-            editar: <Button className='p-button-rounded p--info p-button-lg"' onClick={() =><ActualizarEmpleado idU={data.user[i]._id} cedulaU={data.user[i].Identificacion} nombreU={data.user[i].Nombre} 
-            PapellidoU={data.user[i].PApellido} SApellidoU={data.user[i].SApellido}  fechaU={data.user[i].FecNaci} 
-            puestoU={data.user[i].rol}/>} label="Editar" />,
+            axios.get('http://localhost:8080/api/v1/documento/findByNumCaso/'+id_c)
+            .then(({data}) => {
+
+                console.log(data);
+
+                for(let i = 0; i < data.user.length; i++){  
+                const newDocumento = {
+                  key: i,
+                  id: data.user[i]._id,
+                  nombre: data.user[i].Nombre,
+                  estado: getEstado(data.user[i].Estado),
+                  tipo: data.user[i].Tipo,
+                  accion: <div><SubirDocumento id={data.user[i]._id}/><button className='button-archivo' style={{marginLeft: "2%"}} onClick={() => cargarArchivo(data.user[i].Anexo)}>Abrir</button></div>,
+                  };     
+
+                  setDatos((pre) => {
+                    return [...pre, newDocumento];
+                  });
+              }
+               
               
-            };
-            setDataSource((pre) => {
-              return [...pre, newUser];
-            });
-        }
-
-        }).catch(({response}) => {
-  
-       })
-      }
-      )();
+            }).catch(({response}) => {
+      
+      })
+          })();
     }
   },[]);
-  
-  const myData = {
-    name: 'Recursos Humanos'
-  }
 
-  function editarDepartamento(id){
-    console.log("Se metio en la vara");
-    //navigate("/admin/departamentos/editar", {state:{myData}});
-    return(
-      <ActualizarEmpleado/>
-    );
-  }
+  const data = [
+   
+  ];
+
+  const [datos, setDatos] = useState([
+
+  ]);
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -163,50 +171,30 @@ const App = (props) => {
 
   const columns = [
     {
-      title: 'Cedula',
-      dataIndex: 'cedula',
-      key: 'cedula',
-      width: '20%',
-      ...getColumnSearchProps('cedula'),
-    },
-
-    {
-      title: 'Nombre',
+      title: 'Nombre documento',
       dataIndex: 'nombre',
       key: 'nombre',
-      width: '20%',
-
+      width: '40%'
     },
     {
-      title: 'PApellido',
-      dataIndex: 'Papellido',
-      key: 'Papellido',
-      width: '20%',
-      ...getColumnSearchProps('Papellido'),
-    },
-
-    {
-      title: 'SApellido',
-      dataIndex: 'Sapellido',
-      key: 'Sapellido',
-      width: '20%',
-      ...getColumnSearchProps('Sapellido'),
-    },
-
-    {
-      title: 'Puesto',
-      dataIndex: 'puesto',
-      key: 'puesto',
-      width: '20%',
-      ...getColumnSearchProps('puesto'),
+      title: 'Estado',
+      dataIndex: 'estado',
+      key: 'estado',
+      width: '15%',
     },
     {
-      title: 'Editar',
-      dataIndex: 'editar',
-      key: 'editar',
+      title: 'Tipo',
+      dataIndex: 'tipo',
+      key: 'tipo',
+      width: '18%',
+    },
+    {
+      title: 'Accion',
+      dataIndex: 'accion',
+      key: 'accion',
     },
   ];
-  return <Table columns={columns} dataSource={dataSource} />;
+  return <Table columns={columns} dataSource={datos} />;
 };
 
 export default App;

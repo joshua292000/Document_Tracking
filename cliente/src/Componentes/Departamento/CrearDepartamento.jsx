@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button, Input, Form, Alert  } from 'antd';
+import { Modal, Input, Form, Alert  } from 'antd';
 import { UserOutlined, AuditOutlined, BankOutlined, PhoneOutlined, CommentOutlined} from '@ant-design/icons';
 import { message } from 'antd';
 import Swal from 'sweetalert2';
@@ -7,8 +7,7 @@ import swal from 'sweetalert';
 import axios from "axios";
 import Cookies from "universal-cookie";
 import uniquid from 'uniquid';
-
-
+import { Button } from 'primereact/button'
 
 const App = ({mostrar}) => {
 
@@ -92,10 +91,9 @@ const App = ({mostrar}) => {
 
   return (
     <>
-      <button className='button-62' onClick={() => setVisible(true)}>
-        Nuevo Departamento
-      </button>
-
+     <Button icon="pi pi-plus" className="p-button-rounded p--info p-button-lg" onClick={() => setVisible(true)} label="Nuevo departamento" />
+    <br/>
+ 
       <Modal
         title="Nuevo Departamento"
         centered
@@ -104,6 +102,7 @@ const App = ({mostrar}) => {
         onCancel={() => resetearForm()}
         footer={null}
         width={400}
+      
       >
       <Form
       form={form}

@@ -8,31 +8,32 @@ import Swal from 'sweetalert2';
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { Button } from 'primereact/button'
-//Ocupo mandar una props onde me diga si estoy en la pagina de casos o en la departamento
 
-const App = ({origin}) => {
+const App = () => {
   const [searchText, setSearchText] = useState('');
+
   const [searchedColumn, setSearchedColumn] = useState('');
+
+  const [nombreDep, setNombreDep] = useState('');
+
   const searchInput = useRef(null);
-  const [url, setUrl] = useState(origin ? "/admin/casos/tramitespordepartamentos" : "/EditarDepartamento");
-
-  const navigate = useNavigate();
-  
-  const [dataSource, setDataSource] = useState([
-
-  ]);
 
   const cookies = new Cookies();
 
+  const navigate = useNavigate();
 
-  
-  const redireccionamiento = (id, nombre) => {
+
+  const editarDepartamento = (id, nombreCaso) => {
     const myData = {
-      name: nombre,
-      id_dep: id
+      id_cons: id,
+      nombre: nombreCaso
     }
-    navigate(url, {state:{myData}});
+    navigate("/SubirDocumentos", {state:{myData}});
   }
+
+  const [dataSource, setDataSource] = useState([
+
+  ]);
 
   useEffect(() => {
     return () => {
@@ -40,49 +41,55 @@ const App = ({origin}) => {
     }
   },[]);
 
+  async function getNombreTramite(newCaso){
+
+    await axios.get('http://localhost:8080/api/v1/tramite/findByIdtramite/'+newCaso.tramite)
+      .then(({data}) => {
+        newCaso.tramite = data.user.nombre;
+
+        console.log("Nombre tramite", newCaso.tramite)
+
+        setDataSource((pre) => {
+          return [...pre, newCaso];
+        });
+      }).catch(({response}) => {
+       })
+  }
+
+  async function getNombreDep(id,newCaso){
+
+    await axios.get('http://localhost:8080/api/v1/departamento/findByIddepartamento/'+id)
+      .then(({data}) => {
+        newCaso.departamento = data.user.Nombre;
+
+        console.log("Nombre depa", newCaso.departamento)
+
+        getNombreTramite(newCaso);
+      }).catch(({response}) => {
+       })
+  }
+
   async function actualizarTabla(){
     (async () => {
-      axios.get('http://localhost:8080/api/v1/departamento/getByIdOrg/'+ cookies.get('organizacion_id'))
+      axios.get('http://localhost:8080/api/v1/caso/findByIdOrganizacion/'+cookies.get('organizacion_id'))
       .then(({data}) => {
+        console.log("tamaño de caso", data.user.length)
+        for(let i = 0; i <= data.user.length; i++){  
 
-      for(let i = 0; i < data.user.length; i++){   
-          const newStudent = {
-          key: i,
-          id: data.user[i]._id,
-          departamento: data.user[i].Nombre,
-          correo: data.user[i].Correo,
-          redirect: <Button className='p-button-rounded p--info p-button-lg"' onClick={() =>{redireccionamiento(newStudent.id, newStudent.departamento)}} label="Editar" />,
-          };
-          setDataSource((pre) => {
-            return [...pre, newStudent];
-          });
-      }
-
-  
+          const newCaso = {
+            key: i,
+            id: data.user[i]._id,
+            departamento: '',
+            tramite: data.user[i].Tramite_id,
+            caso: data.user[i].NombreCaso,
+            editar: <Button className='p-button-rounded p-button-info p-button-lg' onClick={() => editarDepartamento(data.user[i]._id, data.user[i].NombreCaso)}label="Editar" />
+            };
+            console.log("Esto tiene la tabla", newCaso.key)
+            getNombreDep(data.user[i].CasosXDepartamento[0].Departamento, newCaso);
+            
+        }
       }).catch(({response}) => {
-
-          if(response.status == "500"){
-            Swal.fire({
-              title: 'Organizacion o correo ingresado ya existentes',
-              icon: 'warning',
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Aceptar'
-              }).then((result) => {
-              
-              })
-          }else if(response.status == "500"){
-            Swal.fire({
-              title: 'Se produjo un error',
-              icon: 'warning',
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Aceptar'
-              }).then((result) => {
-              
-              })
-          }
-        })
+      })
     })();
 
   }
@@ -162,50 +169,56 @@ const App = ({origin}) => {
       />
     ),
     onFilter: (value, record) =>
-        record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
-      onFilterDropdownVisibleChange: (visible) => {
-        if (visible) {
-          setTimeout(() => searchInput.current?.select(), 100);
-        }
-      },
-      render: (text) =>
-        searchedColumn === dataIndex ? (
-          <Highlighter
-            highlightStyle={{
-              backgroundColor: '#ffc069',
-              padding: 0,
-            }}
-            searchWords={[searchText]}
-            autoEscape
-            textToHighlight={text ? text.toString() : ''}
-          />
-        ) : (
-          text
-        ),
-    });
+      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+    onFilterDropdownVisibleChange: (visible) => {
+      if (visible) {
+        setTimeout(() => searchInput.current?.select(), 100);
+      }
+    },
+    render: (text) =>
+      searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{
+            backgroundColor: '#ffc069',
+            padding: 0,
+          }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ''}
+        />
+      ) : (
+        text
+      ),
+  });
 
   const columns = [
     {
       title: 'Departamento',
       dataIndex: 'departamento',
       key: 'departamento',
-      width: '50%',
-    },
-    {
-      title: 'Correo electronico',
-      dataIndex: 'correo',
-      key: 'correo',
       width: '30%',
-      ...getColumnSearchProps('correo'),
     },
     {
-        title: origin ? 'Tramites' : 'Editar',
-        dataIndex: 'redirect',
-        key: 'redirect',
+      title: 'Tramite',
+      dataIndex: 'tramite',
+      key: 'tramite',
+      width: '30%',
+    
+    },
+    {
+      title: 'Caso',
+      dataIndex: 'caso',
+      key: 'caso',
+      width: '30%',
+      ...getColumnSearchProps('caso'),
+    },
+    {
+      title: 'Editar',
+      dataIndex: 'editar',
+      key: 'editar',
     },
   ];
-
-  return <Table columns = {columns} dataSource={dataSource} />;
+  return <Table columns={columns} dataSource={dataSource} />;
 };
 
 export default App;

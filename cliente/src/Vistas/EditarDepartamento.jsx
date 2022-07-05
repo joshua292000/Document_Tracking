@@ -3,12 +3,14 @@ import { AreaChart, Area, Tooltip, ResponsiveContainer } from "recharts";
 import { useLocation } from 'react-router-dom';
 import NavBar from "./NavBar.js";
 import { Link } from 'react-router-dom';
-import { Alert, Form, Input, Button, Select, DatePicker } from 'antd';
+import { Alert, Form, Input, Select, DatePicker } from 'antd';
 import { UserOutlined, AuditOutlined, BankOutlined, PhoneOutlined, CommentOutlined, SolutionOutlined, HomeOutlined} from '@ant-design/icons';
 import swal from 'sweetalert';
 import Swal from 'sweetalert2';
 import TablaEmpleados from "../Componentes/Departamento/TablaEmpleados";
 import axios from "axios";
+import { Button } from 'primereact/button'
+
 
 const { Option } = Select;
 
@@ -67,12 +69,14 @@ const [body, setBody] = useState({ departamento: '', descripcion: '', telefono: 
 
   const [telefono, setTelefono] = useState('');
 
-  const [rol, setRol] = useState([
-
-   ]);
+  const [rol, setRol] = useState([ ]);
   const [tipoEmpleado, setTipoEmp] = useState('');
 
   const [form2] = Form.useForm();
+
+
+  const [idJefe, setIdJefe] = useState('');
+
 
   //Cargar los empleados en el select
   const [emp, setEmp] = useState([
@@ -113,7 +117,8 @@ useEffect(() => {
           for(let i = 0; i < data.user.length; i++){   
             const newUser = {
             key: i,
-            nombre: data.user[i].Nombre +' '+data.user[i].PApellido,
+            nombre: data.user[i].Nombre +' '+data.user[i].PApellido, 
+            idJefe: data.user[i]._id
             };
             setEmp((pre) => {
               return [...pre, newUser];
@@ -145,18 +150,21 @@ useEffect(() => {
               setRol((pre) => {
                 return [...pre, newRol];
               });
+             
           }
-  
+          
           }).catch(({response}) => {
     
          })
         }
+       
       )();
   }
   },[]);
 
   const onChangeEmpleado = (value) => {
     setTipoEmp(value);
+   
   };
 
   const onChangeFecha = (value) => {
@@ -166,6 +174,7 @@ useEffect(() => {
   const onChangeJefe = (value) => {
     /*console.log(`selected ${value}`);*/
     body.jefeDepa = value;
+    console.log("esto tiene emp ", emp[0].idJefe)
   };
 
   const onSearch = (value) => {
@@ -179,12 +188,12 @@ useEffect(() => {
       
       const user = {
         Nombre: body.departamento,
-        Jefe: body.jefeDepa,
+        Jefe: emp[0].idJefe,
         Descripcion: body.descripcion,
         Telefono: body.telefono,
         Correo: body.correoElectronico
       }
-  
+      console.log("esto lleva la actualizacion", user);
       axios.put('http://localhost:8080/api/v1/departamento/actualizardepartamento/'+data.myData.id_dep, user)
         .then(({data}) => {
 
@@ -353,9 +362,7 @@ useEffect(() => {
           span: 10,
         }}
       >
-        <button type="primary" className="button-62">
-          Actualizar
-        </button>
+        <Button id= "ActualizarDepa" type="primary" className="p-button-rounded p-button-info p-button-lg" label= "Actualizar"/>
       </Form.Item>
     </Form>
         </div>
@@ -522,9 +529,7 @@ useEffect(() => {
           span: 10,
         }}
       >
-        <button type="primary" className="button-63">
-          Registrar empleado
-        </button>
+        <Button id= "RegistrarEmpleado" type="primary" className="p-button-rounded p-button-info p-button-lg" label= "Registrar empleado"/>
       </Form.Item>
     </Form>
        </div>

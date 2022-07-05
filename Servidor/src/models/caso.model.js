@@ -18,7 +18,7 @@ const Caso = mongoose.model(
      },
      FechaInicio: Date,
      FechaFin: Date,
-     Estado: Boolean,
+     Estado: Boolean, 
     CasosXDepartamento: [{
           FechaIniciod: Date,
           FechaFind: Date,

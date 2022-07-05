@@ -30,7 +30,7 @@ export function Logig() {
           cookies.set('contrasena', data.user[0].contrasena, {path: '/'});
           cookies.set('organizacion_id', data.user[0].organizacion_id, {path: '/'});
           cookies.set('usuarioAdminId', data.user[0]._id, {path: '/'});
-   
+     
 
           Swal.fire('Felicidades', 'El Usuaio fue encontrado')
             link({dir:"Inicio"});
