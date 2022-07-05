@@ -15,7 +15,7 @@ async function registrar(req, res) {
                 console.log(organizacion);
             }
         }
-    }).clone().catch(function (err) { console.log(err) })
+    })
 }
 
 //----------------------------Mostrar todos las organizaciones---------------------------

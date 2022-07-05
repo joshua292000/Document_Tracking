@@ -17,4 +17,6 @@ api.get("/tramite/findByIdOrg/:id", controller.findByIdOrg);
 
 api.get("/tramite/getByIdDep/:id", controller.getByIdDep);
 
+api.get("/tramite/findByName/:Nombre", controller.findByName);
+
 module.exports = api;

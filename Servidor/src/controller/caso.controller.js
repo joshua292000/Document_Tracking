@@ -96,4 +96,21 @@ async function findByIdOrganizacion(req, res) {
         }
     }).clone().catch(function (err) { console.log(err) })
 }
-module.exports={registrarcaso,findallcaso,findByIdcaso,actualizarcaso,eliminarcaso,findByIdOrganizacion};
+
+//-----------------------------Mostrar Caso por nombre--------------------------
+async function findByNameCaso(req, res) {
+
+    const caso = await Caso.find({NombreCaso: req.params.Nombre}, (err, userStored) => {
+        if (err) {
+            res.status(500).send({ message: "La organizacion consultada no existe" });
+        } else {
+            if (!userStored) {
+                res.status(404).send({ message: "Error cargando la organizacion" });
+            } else {
+                res.status(200).send({ user: userStored });
+            }
+        }
+    }).clone().catch(function (err) { console.log(err) })
+  
+}
+module.exports={registrarcaso,findallcaso,findByIdcaso,actualizarcaso,eliminarcaso,findByIdOrganizacion,findByNameCaso};
