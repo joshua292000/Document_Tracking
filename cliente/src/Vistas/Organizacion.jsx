@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 
 export function InfoOrganizacion() {
     const [nombre, setNombre] = useState('');
-    const [indentificacion, setIndentificacion] = useState('');
+    const [identificacion, setIdentificacion] = useState('');
     const [tipoEm, setTipoEm] = useState('');
     const [date, setDate] = useState(null);
     const [correo,setCorreo]=useState('');
@@ -33,7 +33,7 @@ export function InfoOrganizacion() {
 
     function GuardarOrga(){
       var organizacion={
-        Identificacion: indentificacion,
+        Identificacion: identificacion,
         Nombre: nombre,
         Fecha_Creacion: date,
         Tipo: tipoEm,
@@ -60,12 +60,12 @@ export function InfoOrganizacion() {
       <div id="divOrga" >
       <Toast ref={toast} />
       <br />
-      <Button style={{width: "150px", height: "50px", fontSize: "17px", marginBlock: "15px"}} className="p-button-rounded p-button-warning" aria-label="Organizacion" onClick={()=>link({dir:"Organizacion"})}>
+      <Button style={{width: "150px", height: "50px", fontSize: "17px", marginBlock: "15px"}} className="p-button-rounded p-button-raised p-button-warning" aria-label="Organizacion" onClick={()=>link({dir:"Organizacion"})}>
         <i className="pi pi-building px-2"></i>
         <span className="px-3">Organización</span>
       </Button>
       &nbsp;&nbsp;&nbsp;&nbsp;
-      <Button style={{width: "150px", height: "50px", fontSize: "17px", marginBlock: "15px"}} className="p-button-rounded p-button-info" aria-label="Usuarios" onClick={()=>link({dir:"Usuarios"})}>
+      <Button style={{width: "150px", height: "50px", fontSize: "17px", marginBlock: "15px"}} className="p-button-rounded p-button-raised p-button-info" aria-label="Usuarios" onClick={()=>link({dir:"Usuarios"})}>
         <i className="pi  pi-user px-2"></i>
         <span className="px-3">Usuarios</span>
       </Button>
@@ -84,8 +84,8 @@ export function InfoOrganizacion() {
             <td>
               <div className="field col-12 md:col-4" >
                 <span className="p-float-label">
-                  <InputText id="indentificacion" keyfilter="num" value={indentificacion} onChange={(e) => setIndentificacion(e.target.value)}/>
-                  <label  id="Labindentificacion" htmlFor="indentificacion">Número de indentificación</label>
+                  <InputText id="identificacion" keyfilter="num" value={identificacion} onChange={(e) => setIdentificacion(e.target.value)}/>
+                  <label  id="Labidentificacion" htmlFor="identificacion">Número de identificación</label>
                 </span>
               </div>
             </td>
@@ -121,7 +121,7 @@ export function InfoOrganizacion() {
             <td>
               <ConfirmDialog visible={visible} onHide={() => setVisible(false)} message="¿Estas seguro que deseas continuar?"
               header="Guardar" icon="pi pi-exclamation-triangle" accept={accept} reject={reject} />
-              <Button style={{width: "120px", height: "50px", fontSize: "15px"}} onClick={() => setVisible(true)} icon="pi pi-save" label="Guardar" />
+              <Button style={{width: "120px", height: "50px", fontSize: "15px"}} className=" p-button-raised "onClick={() => setVisible(true)} icon="pi pi-save" label="Guardar" />
             </td>
           </tr>
         </table>
