@@ -7,7 +7,7 @@ import axios from "axios";
 import moment from "moment";
 import Cookies from "universal-cookie";
 import uniquid from 'uniquid';
-
+ 
 
 
 const App = (props) => {
@@ -54,7 +54,7 @@ const App = (props) => {
         .then(res => res.json()).then((a) => {
             setLoading(true);
             setListo(false);
-          console.log(a) //See response
+          console.log("esto tiene a", a) //See response
           modificarArchivoBD(a);
         }).catch(e => console.log(e)) // Or Error in console
     }
@@ -68,7 +68,7 @@ const App = (props) => {
         const updateDocument = {
             Identificacion: uniquid(),
             Nombre: data.user.Nombre,
-            Anexo: a.Anexo,
+            Anexo: a.url,
             Estado: true,
             Tipo: data.user.Tipo,
             Tramite_id: data.user.Tramite_id,

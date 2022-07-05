@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 import { Dropdown } from 'primereact/dropdown';
 import Cookies from "universal-cookie";
 import { Badge } from 'primereact/badge';
+import NavBar from './NavBar';
+
 function formatDate(string){
     var options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(string).toLocaleDateString([],options);
@@ -130,6 +132,8 @@ export function TimelineDemo (){
        
     }
     return (
+        <>
+        <NavBar />
         <div className="timeline-demo"style={{ marginTop:'70px'}}>
             <h1 id='titulocaso'>Seguimiento de casos </h1>
             <div className="col-12 md:col-4" style={{marginBlock:'20px'}} >
@@ -155,5 +159,6 @@ export function TimelineDemo (){
                 
     </div>*/}
         </div>
+        </>
     );
 }

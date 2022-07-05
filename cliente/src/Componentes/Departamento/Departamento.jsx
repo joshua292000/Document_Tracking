@@ -17,7 +17,7 @@ function Departamento(props) {
     <div className="top__card">
       <div className="container_top">
       <div className="container_text">
-      <h3>Departamentos registrados</h3>
+      <h3 id="titulo" >Departamentos registrados</h3>
       </div>
 
       <div className="container_button">
