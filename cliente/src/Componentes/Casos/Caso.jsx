@@ -9,13 +9,14 @@ function Caso(){
         <div className="top__card">
             <div className="container_top">
                 <div className="container_text">
-                    <h3>Casos departamento</h3>
+                    <h3 id="titulo" >Casos departamento</h3>
                 </div>
                 <div className="container_button">
        <CrearCaso/>
       </div>
             </div>
-            <ResponsiveContainer width="100%" height="100%">
+            <br/>
+            <ResponsiveContainer width="70%" height="70%" id="ResponsiveContainer">
                 <div className="container_table">
                 <TablaCasos origin={true}/>
                 </div>

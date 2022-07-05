@@ -74,7 +74,6 @@ const App = () => {
     };
   
     const onSearch = (value) => {
-      console.log('search:', value);
     };
 
     const onFinish = (values) => {

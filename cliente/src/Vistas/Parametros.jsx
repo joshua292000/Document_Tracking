@@ -63,7 +63,7 @@ export function Parametros() {
                 setCorreo1({
                     ...correo1,correo: data.user.Correo
                 });
-                console.log(formatDate(data.user.Fecha_Creacion))
+              
             
             }).catch(err => { Swal.fire({
                 icon: 'error',
@@ -82,11 +82,11 @@ export function Parametros() {
             Tipo: tipoEm1.tipo,
             Correo: correo1.correo
           }
-          console.log(organizacion)
+         
           axios.put('http://localhost:8080/api/v1//organizacion/actualizarorganizacion/'+cookies.get('organizacion_id'), organizacion)
           .then(res => {
              Swal.fire('Felicidades', 'La organización se actualizo con exito')
-             console.log(res)
+           
           })
           
           .catch(err => { 
@@ -95,7 +95,7 @@ export function Parametros() {
               title: 'Error',
               text: 'No se ha podido guardar la organización!',
           })
-          console.log(err) 
+         
         })
     }
   return (

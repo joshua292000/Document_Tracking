@@ -7,6 +7,8 @@ import ActualizarEmpleado from '../Departamento/ActualizarEmpleado';
 import axios from "axios";
 import 'antd/dist/antd.min.css';
 import { Button } from 'primereact/button'
+import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 
 const App = (props) => {
   const [searchText, setSearchText] = useState('');
@@ -18,6 +20,40 @@ const App = (props) => {
   const [dataSource, setDataSource] = useState([
 
   ]);
+
+
+
+  const EliminarEmple = (id) =>{
+    const myData = {
+      id_dep: id
+    }
+    axios.delete('http://localhost:8080/api/v1/persona/eliminarpersona/'+id)
+    .then(({data}) => {
+      swal({
+      title: "Felicidades",
+      text: "Empleado eliminado con exito",
+      icon: "success",
+      button: "Aceptar",
+  }).then((result) => {
+    window.location.reload();
+  })
+  
+    }).catch(({response}) => {
+  
+  
+  Swal.fire({
+    title: 'Error eliminando al empleado',
+    icon: 'warning',
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Aceptar'
+    }).then((result) => {
+    
+    })
+  
+  })
+  }
+
 
   useEffect(() => {
     return () => {
@@ -35,10 +71,11 @@ const App = (props) => {
             Sapellido: data.user[i].SApellido,         
             fecha: data.user[i].FecNaci,
             puesto: data.user[i].rol,
-            editar: <Button className='p-button-rounded p--info p-button-lg"' onClick={() =><ActualizarEmpleado idU={data.user[i]._id} cedulaU={data.user[i].Identificacion} nombreU={data.user[i].Nombre} 
+            editar: <ActualizarEmpleado idU={data.user[i]._id} cedulaU={data.user[i].Identificacion} nombreU={data.user[i].Nombre} 
             PapellidoU={data.user[i].PApellido} SApellidoU={data.user[i].SApellido}  fechaU={data.user[i].FecNaci} 
-            puestoU={data.user[i].rol}/>} label="Editar" />,
-              
+            puestoU={data.user[i].rol} />,
+            eliminar: <Button style={{backgroundColor:"red"}} className='p-button-rounded p--info p-button-lg' onClick={() =>{EliminarEmple(newUser.id)}} label="Eliminar" />
+
             };
             setDataSource((pre) => {
               return [...pre, newUser];
@@ -58,8 +95,7 @@ const App = (props) => {
   }
 
   function editarDepartamento(id){
-    console.log("Se metio en la vara");
-    //navigate("/admin/departamentos/editar", {state:{myData}});
+
     return(
       <ActualizarEmpleado/>
     );
@@ -205,6 +241,11 @@ const App = (props) => {
       dataIndex: 'editar',
       key: 'editar',
     },
+    {
+      title: 'Eliminar',
+      dataIndex: 'eliminar',
+      key: 'eliminar',
+  },
   ];
   return <Table columns={columns} dataSource={dataSource} />;
 };

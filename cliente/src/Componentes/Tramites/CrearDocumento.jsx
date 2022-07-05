@@ -36,7 +36,7 @@ const App = (mostrar) => {
 
   
     const onSearch = (value) => {
-      console.log('search:', value);
+    
     };
 
     const onFinish = (values) => {
@@ -68,9 +68,6 @@ const App = (mostrar) => {
       
 
             })
-            /*
-            data.user.documentos.push(user);
-            console.log(data.user.documentos);*/
 
           }
           )       

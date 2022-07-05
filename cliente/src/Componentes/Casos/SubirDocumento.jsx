@@ -43,20 +43,19 @@ const App = (props) => {
   
   function guardarArchivo(e) {
     setLoading(false);
-    var file = e.target.files[0] //the file
-    var reader = new FileReader() //this for convert to Base64 
-    reader.readAsDataURL(e.target.files[0]) //start conversion...
-    reader.onload = function (e) { //.. once finished..
-      var rawLog = reader.result.split(',')[1]; //extract only thee file data part
-      var dataSend = { dataReq: { data: rawLog, name: file.name, type: file.type }, fname: "uploadFilesToGoogleDrive" }; //preapre info to send to API
-      fetch('https://script.google.com/macros/s/AKfycbxMGl2lPpatCEdXdVl1EMXR9aJkrgHW-Q8IpM79FSRPpz7nJcWq/exec', //your AppsScript URL
-        { method: "POST", body: JSON.stringify(dataSend) }) //send to Api
+    var file = e.target.files[0] 
+    var reader = new FileReader() 
+    reader.readAsDataURL(e.target.files[0]) 
+    reader.onload = function (e) { 
+      var rawLog = reader.result.split(',')[1]; 
+      var dataSend = { dataReq: { data: rawLog, name: file.name, type: file.type }, fname: "uploadFilesToGoogleDrive" }; 
+      fetch('https://script.google.com/macros/s/AKfycbxMGl2lPpatCEdXdVl1EMXR9aJkrgHW-Q8IpM79FSRPpz7nJcWq/exec', 
+        { method: "POST", body: JSON.stringify(dataSend) }) 
         .then(res => res.json()).then((a) => {
             setLoading(true);
             setListo(false);
-          console.log("esto tiene a", a) //See response
           modificarArchivoBD(a);
-        }).catch(e => console.log(e)) // Or Error in console
+        }).catch(e => console.log(e)) 
     }
   }
 
@@ -77,7 +76,6 @@ const App = (props) => {
 
         axios.put('http://localhost:8080/api/v1/documento/actualizardocumento/'+id,updateDocument)
       .then(({data}) => {
-        console.log("actualizado");
       }).catch(({response}) => {
       })
         

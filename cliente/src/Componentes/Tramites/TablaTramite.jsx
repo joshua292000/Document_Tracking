@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Table, Input, Button, Space } from 'antd';
+import { Table, Input, Space } from 'antd';
 import {Highlighter} from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import {useNavigate } from 'react-router-dom';
@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 import axios from "axios";
 import { Content } from 'antd/lib/layout/layout';
 import Cookies from "universal-cookie";
+import { Button } from 'primereact/button'
+import swal from 'sweetalert';
 
 const TablaTramite = () => {
   const [searchText, setSearchText] = useState('');
@@ -33,6 +35,37 @@ const TablaTramite = () => {
 
   ]);
 
+  const EliminarTramite = (id) =>{
+    const myData = {
+      id_dep: id
+    }
+    axios.delete('http://localhost:8080/api/v1/tramite/eliminartramite/'+id)
+    .then(({data}) => {
+      swal({
+      title: "Felicidades",
+      text: "Tramite eliminado con exito",
+      icon: "success",
+      button: "Aceptar",
+  }).then((result) => {
+    window.location.reload();
+  })
+  
+    }).catch(({response}) => {
+  
+  
+  Swal.fire({
+    title: 'Error eliminando el tramite',
+    icon: 'warning',
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Aceptar'
+    }).then((result) => {
+    
+    })
+  
+  })
+  }
+
   useEffect(() => {
     return () => {
       actualizarTablaT();
@@ -40,7 +73,6 @@ const TablaTramite = () => {
   },[]);
 
   async function actualizarTablaT(){
-  // console.log("Id de la organizacion ",cookies.get('organizacion_id') ) 
     (async () => {
         axios.get('http://localhost:8080/api/v1/tramite/findByIdOrg/'+cookies.get('organizacion_id'))
       .then(({data}) => {
@@ -54,8 +86,11 @@ const TablaTramite = () => {
             nombreDepartamento: "",
             departamento: data.user[i].depaActual,
             descripcion: data.user[i].descripcion,
-            editarTramite: <button className='button-37' onClick={() => editarTramite(newTramite.id,newTramite.departamento)}></button>,
-            };
+            editarTramite: <Button className='p-button-rounded p--info p-button-lg"' onClick={() => editarTramite(newTramite.id,newTramite.departamento)}label="Editar" />,
+            eliminar: <Button style={{backgroundColor:"red"}} className='p-button-rounded p--info p-button-lg' onClick={() =>{EliminarTramite(newTramite.id)}} label="Eliminar" />,
+        
+          
+          };
 
             nombreDepartamento(newTramite);
         }
@@ -67,7 +102,6 @@ const TablaTramite = () => {
 }
 
 async function nombreDepartamento(newTramite){
-  //console.log("Id del departamento ",newTramite.departamento )
   (async () => {
 
     axios.get('http://localhost:8080/api/v1/departamento/findByIddepartamento/'+newTramite.departamento)
@@ -88,9 +122,7 @@ async function nombreDepartamento(newTramite){
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
-    console.log("Esto tiene index" , selectedKeys[0])
     setSearchedColumn(dataIndex);
-    console.log("Esto tiene seardched" , searchedColumn)
   };
 
   const handleReset = (clearFilters) => {
@@ -208,6 +240,11 @@ async function nombreDepartamento(newTramite){
       dataIndex: 'editarTramite',
       key: 'editarTramite',
     },
+    {
+      title: 'Eliminar',
+      dataIndex: 'eliminar',
+      key: 'eliminar',
+  },
   ];
   return <Table columns={columns} dataSource={dataSource } />;
 };

@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Table, Input, Button, Space } from 'antd';
+import { Table, Input, Space } from 'antd';
 import {Highlighter} from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import {useNavigate } from 'react-router-dom';
@@ -7,6 +7,8 @@ import 'antd/dist/antd.min.css';
 import Swal from 'sweetalert2';
 import axios from "axios";
 import Cookies from "universal-cookie";
+import { Button } from 'primereact/button'
+import swal from 'sweetalert';
 
 
 const App = (props) => {
@@ -30,6 +32,7 @@ const App = (props) => {
     const [dataSource, setDataSource] = useState([
 
     ]);
+
   
     useEffect(() => {
       return () => {
@@ -50,7 +53,7 @@ const App = (props) => {
               estado:data.user.documentos[i].estado_doc,
               estadoDoc: getEstado(data.user.documentos[i].estado_doc),
               tipArch:data.user.documentos[i].tipo_doc,
-              accion: <button className='button-37' onClick={() => editarDocumento(cookies.get('ideTramite'),i)}></button>,
+              accion: <Button className='p-button-rounded p--info p-button-lg' onClick={() => editarDocumento(cookies.get('ideTramite'),i)} label="Editar" />,
               };
               setDataSource((pre) => {
                 return [...pre, newStudent];

@@ -134,8 +134,6 @@ useEffect(() => {
     documento.documentos[ind].estado_doc = estado;
     documento.documentos[ind].tipo_doc = body.tipoArch;
 
-    console.log(documento.documentos[ind].nombre_doc)
-
     const newDocumenro =  {
       nombre: documento.nombre,
       depaActual: documento.depaActual,
@@ -144,8 +142,6 @@ useEffect(() => {
       documentos: documento.documentos
     };
 
-    console.log(newDocumenro)
-  
     axios.put('http://localhost:8080/api/v1/tramite/actualizartramite/'+data.myData.id_doc, newDocumenro)
                   .then(({data}) => {
             setVisible(false);
@@ -176,14 +172,11 @@ useEffect(() => {
 
 function onChangeEstado(value){
   if(value == "Activo"){
-    console.log("Activo");
     setEstado(true);
   }else{
-    console.log("Inactivo");
     setEstado(false);
   }
 }
-
 
     return(
       <div className="metrics">
@@ -192,9 +185,9 @@ function onChangeEstado(value){
                  <span className='nav-text' style={{cursor: "pointer"}} onClick={ () => {window.history.back()}} >Editar {'>'}</span>
                  <span className='nav-text'>Documentos</span></div>}/>
       <div className="grid-edit">
-          <div className="top__edit">
+          <div className="top__edit" id = "Infodepa">
               <div className="container_edit">
-                  <h3>Informacion del Documento</h3>
+                  <h3 id="txtCaso" >Informacion del Documento</h3>
                   <Form
                       form={form}
                       name="basic"
@@ -271,7 +264,7 @@ function onChangeEstado(value){
                       span: 10,
                       }}
                   >
-                    <Button icon="pi pi-plus" className="p-button-rounded p-button-info p-button-lg"  label="Actualizar" />
+                    <Button id= "ActualizarDepa" icon="pi pi-plus" className="p-button-rounded p-button-info p-button-lg"  label="Actualizar" />
     <br/>
                   </Form.Item>
                   </Form>

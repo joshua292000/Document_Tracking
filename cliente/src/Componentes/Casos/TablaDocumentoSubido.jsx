@@ -35,13 +35,8 @@ const App = (props) => {
   useEffect(() => {
     return () => {
         (async () => {
-            console.log(id_c);
-
             axios.get('http://localhost:8080/api/v1/documento/findByNumCaso/'+id_c)
             .then(({data}) => {
-
-                console.log(data);
-
                 for(let i = 0; i < data.user.length; i++){  
                 const newDocumento = {
                   key: i,

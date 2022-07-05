@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { Button } from 'primereact/button'
+import swal from 'sweetalert';
+
 
 const App = () => {
   const [searchText, setSearchText] = useState('');
@@ -35,6 +37,37 @@ const App = () => {
 
   ]);
 
+  const EliminarCaso = (id) =>{
+    const myData = {
+      id_dep: id
+    }
+    axios.delete('http://localhost:8080/api/v1/caso/eliminarcaso/'+id)
+    .then(({data}) => {
+      swal({
+      title: "Felicidades",
+      text: "Caso eliminado con exito",
+      icon: "success",
+      button: "Aceptar",
+  }).then((result) => {
+    window.location.reload();
+  })
+  
+    }).catch(({response}) => {
+  
+  
+  Swal.fire({
+    title: 'Error eliminando el caso',
+    icon: 'warning',
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Aceptar'
+    }).then((result) => {
+    
+    })
+  
+  })
+  }
+
   useEffect(() => {
     return () => {
       actualizarTabla();
@@ -46,9 +79,6 @@ const App = () => {
     await axios.get('http://localhost:8080/api/v1/tramite/findByIdtramite/'+newCaso.tramite)
       .then(({data}) => {
         newCaso.tramite = data.user.nombre;
-
-        console.log("Nombre tramite", newCaso.tramite)
-
         setDataSource((pre) => {
           return [...pre, newCaso];
         });
@@ -61,9 +91,6 @@ const App = () => {
     await axios.get('http://localhost:8080/api/v1/departamento/findByIddepartamento/'+id)
       .then(({data}) => {
         newCaso.departamento = data.user.Nombre;
-
-        console.log("Nombre depa", newCaso.departamento)
-
         getNombreTramite(newCaso);
       }).catch(({response}) => {
        })
@@ -73,7 +100,7 @@ const App = () => {
     (async () => {
       axios.get('http://localhost:8080/api/v1/caso/findByIdOrganizacion/'+cookies.get('organizacion_id'))
       .then(({data}) => {
-        console.log("tamaño de caso", data.user.length)
+
         for(let i = 0; i <= data.user.length; i++){  
 
           const newCaso = {
@@ -82,9 +109,11 @@ const App = () => {
             departamento: '',
             tramite: data.user[i].Tramite_id,
             caso: data.user[i].NombreCaso,
-            editar: <Button className='p-button-rounded p-button-info p-button-lg' onClick={() => editarDepartamento(data.user[i]._id, data.user[i].NombreCaso)}label="Editar" />
-            };
-            console.log("Esto tiene la tabla", newCaso.key)
+            editar: <Button className='p-button-rounded p-button-info p-button-lg' onClick={() => editarDepartamento(data.user[i]._id, data.user[i].NombreCaso)}label="Editar" />,
+            eliminar: <Button style={{backgroundColor:"red"}} className='p-button-rounded p--info p-button-lg' onClick={() =>{EliminarCaso(data.user[i]._id)}} label="Eliminar" />
+               
+          };
+  
             getNombreDep(data.user[i].CasosXDepartamento[0].Departamento, newCaso);
             
         }
@@ -217,6 +246,11 @@ const App = () => {
       dataIndex: 'editar',
       key: 'editar',
     },
+    {
+      title: 'Eliminar',
+      dataIndex: 'eliminar',
+      key: 'eliminar',
+  },
   ];
   return <Table columns={columns} dataSource={dataSource} />;
 };

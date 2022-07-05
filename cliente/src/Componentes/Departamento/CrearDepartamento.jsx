@@ -37,7 +37,7 @@ const App = ({mostrar}) => {
             Telefono: telefono,
             organizacion_id: cookies.get('organizacion_id')
           }
-          console.log("depa lleva ", user)
+         
           axios.post('http://localhost:8080/api/v1/departamento/creardepartamento',user)
                   .then(({data}) => {
 

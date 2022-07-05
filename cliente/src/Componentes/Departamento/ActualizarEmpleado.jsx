@@ -53,8 +53,6 @@ const App = ({idU, cedulaU, nombreU, PapellidoU, SApellidoU, fechaU, edadU, naci
 
     const onFinish = (values) => {
 
-        console.log(fechaNac);
-
         const newData = {
           Identificacion: cedula,
           Nombre: nombre,
@@ -124,11 +122,11 @@ const App = ({idU, cedulaU, nombreU, PapellidoU, SApellidoU, fechaU, edadU, naci
       };
     
       const onSearch = (value) => {
-        console.log('search:', value);
+       
       };
 
       const handleDateChange = date => {
-        console.log(date);
+       
     }
 
     useEffect(() => {

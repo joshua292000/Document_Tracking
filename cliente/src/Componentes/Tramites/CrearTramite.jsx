@@ -50,7 +50,6 @@ const CrearTramite = (mostrar) => {
 
 
     useEffect(() => {
-      console.log("usuario", cookies.get('organizacion_id'))
       return () => {
         (
           async () => {
@@ -91,7 +90,7 @@ const CrearTramite = (mostrar) => {
           casos:[]
 
       }
-      console.log("Esto lleva tramite ", user)
+   
         axios.post('http://localhost:8080/api/v1/tramite/registrartramite',user)
         .then(({data}) => {
 
@@ -149,14 +148,14 @@ const CrearTramite = (mostrar) => {
     };
   
     const onSearch = (value) => {
-      console.log('search:', value);
+     
     };
 
     return(
     <>
     
 
-        <Button icon="pi pi-plus" className="p-button-rounded p-button-info p-button-lg" onClick={() => setVisible(true)} label="Nuevo tramite" />
+     <Button icon="pi pi-plus" className="p-button-rounded p-button-info p-button-lg" onClick={() => setVisible(true)} label="Nuevo tramite" />
 
     <Modal
         title="Nuevo Tramite"

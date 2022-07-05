@@ -6,9 +6,7 @@ export function TabMenuDemo(){
     const [activeIndex, setActiveIndex] = useState(0);
     const navegar = useNavigate();
     const link = ()=>{
-        console.log("Hola mUndo");
-        navegar("/Departamentos");
-        
+        navegar("/Departamentos");   
     }
     const items = [
         {label: 'Home', icon: 'pi pi-fw pi-home', onclick:{link}},

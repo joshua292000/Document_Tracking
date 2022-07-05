@@ -52,7 +52,7 @@ export function Logig() {
             text: 'No se ha podido encontrar el usuario!',
           }) 
         })
-     // console.log("idOrganizacion "+stateApp);
+    
     }
     return (
       <div id="divroot">

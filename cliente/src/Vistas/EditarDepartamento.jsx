@@ -70,21 +70,15 @@ const [body, setBody] = useState({ departamento: '', descripcion: '', telefono: 
   const [telefono, setTelefono] = useState('');
 
   const [rol, setRol] = useState([ ]);
+
   const [tipoEmpleado, setTipoEmp] = useState('');
 
   const [form2] = Form.useForm();
 
-
   const [idJefe, setIdJefe] = useState('');
 
+  const [emp, setEmp] = useState([]);
 
-  //Cargar los empleados en el select
-  const [emp, setEmp] = useState([
-
-  ]);
-
-
-//Actualizar datos en el sistema
 
 useEffect(() => {
   return () => {
@@ -172,20 +166,13 @@ useEffect(() => {
   };
   
   const onChangeJefe = (value) => {
-    /*console.log(`selected ${value}`);*/
     body.jefeDepa = value;
-    console.log("esto tiene emp ", emp[0].idJefe)
   };
 
   const onSearch = (value) => {
-    console.log('search:', value);
   };
 
     const actualizarDepartamento = (values) => {
-
-      console.log(body);
-
-      
       const user = {
         Nombre: body.departamento,
         Jefe: emp[0].idJefe,
@@ -193,7 +180,6 @@ useEffect(() => {
         Telefono: body.telefono,
         Correo: body.correoElectronico
       }
-      console.log("esto lleva la actualizacion", user);
       axios.put('http://localhost:8080/api/v1/departamento/actualizardepartamento/'+data.myData.id_dep, user)
         .then(({data}) => {
 
@@ -275,9 +261,9 @@ useEffect(() => {
                  <span className='nav-text' style={{cursor: "pointer"}} onClick={ () => {window.history.back()}}>Departamentos {'>'} </span>
                 <span className='nav-text' style={{cursor: "pointer"}} > Editar</span></div>}/>
       <div className="grid-edit">
-      <div className="top__edit">
+      <div className="top__edit" id = "Infodepa" >
         <div className="container_edit">
-          <h3>Informacion del departamento</h3>
+          <h3 id="txtCaso">Informacion del departamento</h3>
           <Form
       form={form}
       name="basic"
@@ -367,8 +353,8 @@ useEffect(() => {
     </Form>
         </div>
        </div>
-       <div className="top__edit">
-       <h3>Agregar empleado</h3>
+       <div className="top__edit" id = "Infodepa">
+       <h3 id="txtCaso" >Agregar empleado</h3>
        <Form
       form={form2}
       name="basic"
@@ -536,8 +522,8 @@ useEffect(() => {
       </div>
       <div className="grid-users">
       <div className="bootom__users">
-       <h3>Empleados del departamento</h3>
-       <ResponsiveContainer width="100%" height="100%">
+       <h3 id="txtCaso" >Empleados del departamento</h3>
+       <ResponsiveContainer width="70%" height="70%" id="ResponsiveContainer">
          <div className="container_table">
          <TablaEmpleados id_dep = {data.myData.id_dep}/>
          </div>
@@ -547,5 +533,5 @@ useEffect(() => {
     </div>
   );
 }
-
+ 
 export default EditarDepartamento;

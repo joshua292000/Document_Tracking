@@ -29,14 +29,10 @@ export function TimelineDemo (){
     
     useEffect(() => {
        
-        console.log(cookies.get('organizacion_id'))
-        
         return()=>{(async()=>{
             axios.get('http://localhost:8080/api/v1/caso/findByIdOrganizacion/'+cookies.get('organizacion_id'))
             .then(({data}) => {
                 for(let i = 0; i < data.user.length; i++){   
-                    console.log(formatDate(data.user[i].CasosXDepartamento[0].FechaFind))
-                    //console.log(data.user[i].CasosXDepartamento[0].FechaIniciod)
                     const newUser = {
                         name: data.user[i].NombreCaso,
                         tra: data.user[i].Tramite_id,
@@ -70,18 +66,18 @@ export function TimelineDemo (){
             <Card style={{backgroundColor:item.seleccionado}} title={item.status} subTitle={item.date}>
                 <p>Correo: {item.Correo} <br/> Telefono: {item.Tel} </p>
                 <p>Fecha de ingreso al departamento:   {item.FechIni} <br/> <br/> Fecha estimada de salida:   {item.FectFin} </p>
-                {/*<Button label="Read more" className="p-button-text"></Button>*/}
+                {}
             </Card>
         );
     };
 
     function BuscarTramite(){
-       // console.log(selectedCity1.tra);
+     
         var idsel='';
         axios.get('http://localhost:8080/api/v1/tramite/findByIdtramite/'+selectedCity1.tra)
         .then(({data}) => {
             Swal.fire('Felicidades', 'El usuario se creo con exito')
-          //  if(data.user.length>0){
+  
                 idsel=data.user.depaActual
                 
                 for(let i = 0; i < data.user.ciclo.length; i++){ 

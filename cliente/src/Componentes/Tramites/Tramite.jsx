@@ -16,7 +16,7 @@ function Tramite(props){
     <div className="top__card">
       <div className="container_top">
       <div className="container_text">
-      <h3>Tramites registrados</h3>
+      <h3 id="titulo">Tramites registrados</h3>
       </div>
 
       <div className="container_button">
@@ -25,7 +25,7 @@ function Tramite(props){
       <br/>
       <br/>
       </div>
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="70%" height="70%" id="ResponsiveContainer">
          <div className="container_table">
          <TablaTramite/>
          </div>

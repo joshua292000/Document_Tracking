@@ -39,11 +39,11 @@ export function InfoOrganizacion() {
         Tipo: tipoEm,
         Correo: correo
       }
-      console.log(organizacion)
+   
       axios.post('http://localhost:8080/api/v1/organizacion/registrar', organizacion)
       .then(res => {
          Swal.fire('Felicidades', 'La organización se creo con exito')
-         console.log(res)
+        
       })
       
       .catch(err => { 
@@ -52,7 +52,7 @@ export function InfoOrganizacion() {
           title: 'Error',
           text: 'No se ha podido guardar la organización!',
       })
-      console.log(err) 
+     
     })
       
     }

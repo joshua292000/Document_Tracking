@@ -49,10 +49,10 @@ export function InfoUsuarios() {
         axios.get('http://localhost:8080/api/v1/organizacion/findByName/'+nomorganiza)
         .then(({data}) => {
             Swal.fire('Felicidades', 'La organizacion consultada existe')
-            console.log("primer " , data.user[0]._id)
+    
             id=data.user[0]._id
             if(id.length>0){
-                console.log("tercero " ,id)
+               
                 var usuario={
                     nombre_usuario:nomusuario,
                       contrasena:contra,
@@ -60,11 +60,11 @@ export function InfoUsuarios() {
                 }
         
                 
-                console.log(usuario)
+                
                 axios.post('http://localhost:8080/api/v1/usuario/registrarusuario', usuario)
                 .then(res => {
                    Swal.fire('Felicidades', 'El usuario se creo con exito')
-                   console.log(res)
+                   
                    navegar("/");
                 })
                 
@@ -74,17 +74,17 @@ export function InfoUsuarios() {
                     title: 'Error',
                     text: 'No se ha podido guardar el usuario!',
                 })
-                console.log(err) 
+              
               })
             }
-            console.log("Segundo " , id)
+            
           
         }).catch(err => { Swal.fire({
             icon: 'error',
             title: 'Error',
             text: 'La organizacion consultada no existe!',
         })
-        console.log(err) }
+         }
         )
     }
     return (

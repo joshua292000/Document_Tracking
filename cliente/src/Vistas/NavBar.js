@@ -1,17 +1,8 @@
 import React from 'react'
 import Cookies from "universal-cookie";
-
+import LoadImage from '../login.png';
 function NavBar() {
-    const tab = <> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</>;
+
    
     const cookies = new Cookies();
     return (
@@ -46,17 +37,23 @@ function NavBar() {
                             <a class="nav-link"  href="Seguimiento">Consulta Tracking</a>
                         </li>
 
+                       
+                      
+                        <img  style={{width: "40px", height: "40px", marginLeft: "520px", marginTop: "5px"}} src={LoadImage} />
 
-                        <li class="nav-item dropdown" style={{paddingLeft: "550px"}}>
-                        <a class="nav-link dropdown-toggle" href="Inicio" role="button" data-bs-toggle="dropdown">Usuario: {cookies.get('nombreUsuario')}</a>
-                        <ul class="dropdown-menu"  style={{marginLeft: "550px"}}>
+
+                        <li class="nav-item dropdown" >
+
+                        <a class="nav-link dropdown-toggle" href="Inicio" role="button" data-bs-toggle="dropdown"  >Usuario: {cookies.get('nombreUsuario')}</a>
+                        
+                        <ul class="dropdown-menu"  >
                             <li>
-                            <a class="dropdown-item" href="Departamentos" >Cerrar Sesion</a>
+                            <a class="dropdown-item" href="/" >Cerrar Sesion</a>
                             </li>
 
                         </ul>
                         </li>
-
+                     
 
 
                     </ul>

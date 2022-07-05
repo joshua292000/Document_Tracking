@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { Button } from 'primereact/button'
-//Ocupo mandar una props onde me diga si estoy en la pagina de casos o en la departamento
+import swal from 'sweetalert';
 
 const App = ({origin}) => {
   const [searchText, setSearchText] = useState('');
@@ -25,7 +25,38 @@ const App = ({origin}) => {
   const cookies = new Cookies();
 
 
+const EliminarDepa = (id) =>{
+  const myData = {
+    id_dep: id
+  }
+  axios.delete('http://localhost:8080/api/v1/departamento/eliminardepartamento/'+id)
+  .then(({data}) => {
+    swal({
+    title: "Felicidades",
+    text: "Departamento eliminado con exito",
+    icon: "success",
+    button: "Aceptar",
+}).then((result) => {
+  window.location.reload();
+})
+
+  }).catch(({response}) => {
+
+
+Swal.fire({
+  title: 'Error eliminando el departamento',
+  icon: 'warning',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Aceptar'
+  }).then((result) => {
   
+  })
+
+})
+}
+
+
   const redireccionamiento = (id, nombre) => {
     const myData = {
       name: nombre,
@@ -51,13 +82,14 @@ const App = ({origin}) => {
           id: data.user[i]._id,
           departamento: data.user[i].Nombre,
           correo: data.user[i].Correo,
-          redirect: <Button className='p-button-rounded p--info p-button-lg"' onClick={() =>{redireccionamiento(newStudent.id, newStudent.departamento)}} label="Editar" />,
-          };
+          redirect: <Button className='p-button-rounded p--info p-button-lg' onClick={() =>{redireccionamiento(newStudent.id, newStudent.departamento)}} label="Editar" />,
+          eliminar: <Button style={{backgroundColor:"red"}} className='p-button-rounded p--info p-button-lg' onClick={() =>{EliminarDepa(newStudent.id)}} label="Eliminar" />,
+        
+        };
           setDataSource((pre) => {
             return [...pre, newStudent];
           });
       }
-
   
       }).catch(({response}) => {
 
@@ -203,6 +235,12 @@ const App = ({origin}) => {
         dataIndex: 'redirect',
         key: 'redirect',
     },
+
+    {
+      title: origin ? 'Tramites' : 'Eliminar',
+      dataIndex: 'eliminar',
+      key: 'eliminar',
+  },
   ];
 
   return <Table columns = {columns} dataSource={dataSource} />;

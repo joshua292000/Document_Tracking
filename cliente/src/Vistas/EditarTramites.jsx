@@ -111,12 +111,10 @@ function EditarTramite(props){
     },[]);
 
 
-    const onChangeJefe = (value) => {
-        console.log(`selected ${value}`);
+    const onChangeJefe = (value) => {  
     };
       
     const onSearch = (value) => {
-        console.log('search:', value);
     };
 
     const actualizarTramite = (values) => {
@@ -151,10 +149,6 @@ function EditarTramite(props){
     }
         
     const actualizarTramite1 = (values) => {
-
-        console.log(body);
-  
-        
         const user = {
           tipo_tra: body.nombreT,
           descripcion_tra: body.descripcion,
@@ -189,9 +183,9 @@ function EditarTramite(props){
                  <span className='nav-text'>Tramites {'>'}</span>
                 </Link> <span className='nav-text'>Editar</span></div>}/>
             <div className="grid-edit">
-                <div className="top__edit">
+                <div className="top__edit" id = "Infodepa">
                     <div className="container_edit">
-                        <h3>Informacion del Tramite</h3>
+                        <h3 id="txtCaso" >Informacion del Tramite</h3>
                         <Form
                             form={form}
                             name="basic"
@@ -260,10 +254,11 @@ function EditarTramite(props){
             </div>
             <div className="grid-users">
                 <div className="bootom__users">
-                    <h3>Documentos Requeridos</h3>
+                    <h3 id="txtCaso" >Documentos Requeridos</h3>
                     <div className="container_button">
                     <CrearDocumento mostrar={mostrarSms}/>
                     </div>
+                    <br/>
                 <ResponsiveContainer width="70%" height="70%" id="ResponsiveContainer">
                 <div className="container_table">
                     <TablaDocumentos/>
@@ -273,10 +268,11 @@ function EditarTramite(props){
             </div>
             <div className="grid-users">
                 <div className="bootom__users">
-                <h3>Ciclo</h3>
+                <h3 id="txtCaso" >Ciclo</h3>
                 <div className="container_button">
                     <CrearCiclo/>
                 </div>
+                <br/>
                 <ResponsiveContainer width="70%" height="70%" id="ResponsiveContainer">
                 <div className="container_table">
                     <TablaCiclos/>

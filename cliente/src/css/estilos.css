@@ -179,3 +179,18 @@ a:link {
     font-size: 15px;
  }
 
+ #ResponsiveContainer{
+    transform: translateX(200px);
+    border-radius: 1rem;
+    border-radius: 5px;
+ }
+
+ #Infodepa{
+    text-align: center;
+    width: 500px;
+    transform: translateX(450px);
+ }
+
+ #ActualizarDepa, #RegistrarEmpleado, #ActualizarTramite{
+    transform: translateX(140px);
+ }
