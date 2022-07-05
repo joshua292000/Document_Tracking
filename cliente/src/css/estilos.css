@@ -4,12 +4,27 @@
 }
 
 
-#titulo,#titulo1 {
+#titulo,#titulo1,#titulocaso {
     font-family:Vintage ;
     color: white;
     font-size: 50px;
- 
 }
+#txtCaso,#titcaso{
+    font-family:Vintage ;
+    color: white;
+}
+
+#Divespe{
+    height: 100px;
+    margin: 10px;
+    width: 200px;
+    box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.2);
+    background-color: rgba(163, 29, 29, 0.106);
+    border: 15px solid rgb(163, 29, 29, 0.06);
+    border-radius: 1rem;
+    border-radius: 5px;
+}
+
 
 #divroot, #divUsu, #divOrga, #divContra{
     justify-content: center;

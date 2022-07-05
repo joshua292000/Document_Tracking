@@ -9,6 +9,7 @@ const api = express.Router();
     api.post("/caso/registrarcaso", controller.registrarcaso);
     api.get("/caso/findallcaso", controller.findallcaso);
     api.get("/caso/findByIdOrganizacion/:id", controller.findByIdOrganizacion);
+    api.get("/caso/findByNameCaso/:Nombre", controller.findByNameCaso);
     api.get("/caso/findByIdcaso/:casoId", controller.findByIdcaso);
     api.put("/caso/actualizarcaso/:casoId", controller.actualizarcaso);
     api.delete("/caso/eliminarcaso/:casoId", controller.eliminarcaso);

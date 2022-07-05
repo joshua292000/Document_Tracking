@@ -31,7 +31,7 @@ export function Logig() {
           cookies.set('organizacion_id', data.user[0].organizacion_id, {path: '/'});
           cookies.set('usuarioAdminId', data.user[0]._id, {path: '/'});
    
-
+        
           Swal.fire('Felicidades', 'El Usuaio fue encontrado')
             link({dir:"Inicio"});
             axios.get('http://localhost:8080/api/v1/usuario/findByName/'+value1)

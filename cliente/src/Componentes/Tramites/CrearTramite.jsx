@@ -50,6 +50,7 @@ const CrearTramite = (mostrar) => {
 
 
     useEffect(() => {
+      console.log(cookies.get('organizacion_id'))
       return () => {
         (
           async () => {
