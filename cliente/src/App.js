@@ -17,6 +17,7 @@ import {GalleriaIndicatorDemo} from "./Vistas/Inicio";
 import Departamentos from "./Vistas/Departamentos";
 import EditarDepartamento from "./Vistas/EditarDepartamento";
 import {TimelineDemo} from "./Vistas/Seguimientodocumentos";
+import {Parametros} from "./Vistas/Parametros";
 import Casos from "./Vistas/Casos";
 import SubirDocum from "./Vistas/SubirDocumentos";
 import "./App.css";
@@ -42,6 +43,7 @@ export function App() {
           <Route path="/Seguimiento" element={<TimelineDemo/>}/>
           <Route path="/Casos" element={<Casos/>}/>
           <Route path="/SubirDocumentos" element={<SubirDocum/>}/>
+          <Route path="/Parametros" element={<Parametros/>}/>
       </Routes>
     </BrowserRouter>
   );

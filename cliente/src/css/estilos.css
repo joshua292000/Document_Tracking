@@ -9,7 +9,7 @@
     color: white;
     font-size: 50px;
 }
-#txtCaso,#titcaso{
+#txtCaso,#titcaso,#txtParametros{
     font-family:Vintage ;
     color: white;
 }
@@ -43,7 +43,7 @@
 
 }
 
-#divContra{
+#divContra,#divParametros{
     justify-content: center;
     backdrop-filter: blur(1rem);
     background-color: rgba(163, 29, 29, 0.106);
@@ -78,7 +78,7 @@ td{
  
 }
 
-#Nombre, #indentificacion, #FCre, #TipoEm, #Correo, #NomOrganizacion, #NomUsuario{
+#Nombre, #identificacion, #FCre, #TipoEm, #Correo, #NomOrganizacion, #NomUsuario{
     width: 250px;
     height: 45px;
     font-size: 15px;
@@ -167,7 +167,7 @@ a:link {
     z-index: -1;
  }
 
- #LabNombre, #Labindentificacion, #LabTipoEm, #LabCorreo, #LabFCre{
+ #LabNombre, #Labidentificacion, #LabTipoEm, #LabCorreo, #LabFCre{
     margin-top: -12px;
     transform: translateX(25px);
     font-size: 15px;
